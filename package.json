@@ -25,7 +25,10 @@
     "test": "jest --no-cache",
     "watch": "webpack-dev-server --inline --hot",
     "watch-work": "webpack-dev-server --inline --hot",
-    "build": "webpack"
+    "build": "webpack",
+    "postinstall": "npm install express",
+    "heroku-postbuild": "webpack",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -38,6 +41,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
+    "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "font-awesome": "^4.7.0",
