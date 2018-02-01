@@ -3,7 +3,7 @@
 const HTMLPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 const {EnvironmentPlugin,DefinePlugin} = require('webpack');
-require('dotenv').config({ path: `${__dirame}/../.env`});
+require('dotenv').config();
 
 module.exports = {
   entry: `${__dirname}/src/main.js`,
