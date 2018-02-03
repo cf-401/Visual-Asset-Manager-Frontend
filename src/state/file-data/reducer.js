@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
 
 export default (state = [], { type, payload }) => {
   switch (type) {

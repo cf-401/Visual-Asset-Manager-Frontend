@@ -6,4 +6,5 @@ export default {
   user: PropTypes.string,
   path: PropTypes.string,
   description: PropTypes.string,
+  labels: PropTypes.arrayOf(PropTypes.string),
 };

@@ -2,35 +2,16 @@
 import superagent from 'superagent';
 import cookies from 'react-cookies';
 
+import * as actions from '../utils/base-actions';
+
 const API = `${__API_URL__}/visual_files`;
-
-const initAction = payload => ({
-  type: 'INIT',
-  payload,
-});
-
-const createAction = payload => ({
-  type: 'CREATE',
-  payload,
-});
-
-const updateAction = payload => ({
-  type: 'UPDATE',
-  payload,
-});
-
-const deleteAction = id => ({
-  type: 'DELETE',
-  payload: id,
-});
-
 
 const bearerToken = () => cookies.load('auth');
 
 export const init = () => (dispatch) => {
   superagent.get(API)
     .set('Authorization', `Bearer ${bearerToken()}`)
-    .then(res => dispatch(initAction(res.body)))
+    .then(res => dispatch(actions.init(res.body)))
     .catch(console.error);
 };
 
@@ -38,7 +19,7 @@ export const create = payload => (dispatch) => {
   superagent.post(API)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .send(payload)
-    .then(res => dispatch(createAction(res.body)))
+    .then(res => dispatch(actions.create(res.body)))
     .catch(console.error);
 };
 
@@ -48,7 +29,7 @@ export const updateData = payload => (dispatch) => {
   superagent.put(url)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .send(payload)
-    .then(() => dispatch(updateAction(payload)))
+    .then(() => dispatch(actions.update(payload)))
     .catch(console.error);
 };
 
@@ -56,7 +37,7 @@ export const remove = id => (dispatch) => {
   const url = `${API}/${id}`;
   superagent.delete(url)
     .set('Authorization', `Bearer ${bearerToken()}`)
-    .then(() => dispatch(deleteAction(id)))
+    .then(() => dispatch(actions.remove(id)))
     .catch(console.error);
 };
 
@@ -77,6 +58,7 @@ export const updateImage = data => (dispatch) => {
         path: res.body.url,
         filename: data.filename,
         description: data.description,
+        /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
         _id: data._id,
       };
       metadata.visualAsset = null;
