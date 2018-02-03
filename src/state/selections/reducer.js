@@ -3,21 +3,31 @@ import { without } from 'lodash';
 
 const initalState = {
   allLabels: [],
-  currentLabelsSelcted: [],
+  currentLabels: [],
 };
 
 export default (state = initalState, { type, payload }) => {
   switch (type) {
     case 'INIT':
-      return { ...state, allLabels: payload };
+      return Object.assign({}, {
+        allLabels: payload,
+        currentLabels: state.currentLabels,
+      });
     case 'CREATE':
-      return { ...state, allLabels: payload };
+      console.log(payload);
+      return Object.assign({}, {
+        allLabels: [...state.allLabels, payload],
+        currentLabels: state.currentLabels,
+      });
     case 'UPDATE':
-      return { ...state, currentLabelsSelcted: payload };
-    case 'ETE':
+      return Object.assign({}, {
+        allLabels: state.allLabels,
+        currentLabels: payload,
+      });
+    case 'DELETE':
       return {
         allLabels: without(state.allLabels, payload),
-        currentLabelsSelcted: without(state.allLabels, payload),
+        currentLabels: without(state.allLabels, payload),
       };
     default:
       return state;

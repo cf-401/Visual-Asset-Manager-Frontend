@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 import reducer from '../reducer';
 
 describe('file data reducer', () => {
