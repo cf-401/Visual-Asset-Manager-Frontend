@@ -5,7 +5,7 @@ import cookies from 'react-cookies';
 import * as actions from '../utils/base-actions';
 
 const bearerToken = () => cookies.load('auth');
-const API = `${__API_URL__}/image_labels`;
+const API = `${__API_URL__}/asset_labels`;
 
 export const { update } = actions;
 
