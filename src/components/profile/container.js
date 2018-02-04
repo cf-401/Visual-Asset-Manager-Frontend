@@ -14,13 +14,11 @@ class Profile extends React.Component {
     console.log(this.props.auth.user.username);
     return (
       <React.Fragment>
-        <LogInContainer>
           <UserUpdate
             update={this.props.userUpdate}
             delete={this.props.userDelete}
             auth={this.props.auth}
           />
-        </LogInContainer>
       </React.Fragment>
     );
   }
