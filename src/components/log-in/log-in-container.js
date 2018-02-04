@@ -29,7 +29,7 @@ class LogInContainer extends React.Component {
   }
 
   render() {
-    const {auth, handleLogin, handleCreateAccount} = this.props;
+    const { auth, handleLogin, handleCreateAccount } = this.props;
     console.log(auth);
     return (
       <React.Fragment>
@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = dispatch => ({
   handleLogin: user => dispatch(actions.authLogin(user)),
   handleLogout: () => dispatch(actions.authLogout()),
   handleCreateAccount: user => dispatch(actions.authCreateAccount(user)),
@@ -55,6 +55,8 @@ const mapDispatchToProps = (dispatch, getState) => ({
 
 LogInContainer.propTypes = {
   auth: PropTypes.shape(AuthType).isRequired,
+  handleLogin: PropTypes.func.isRequired,
+  handleCreateAccount: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogInContainer);

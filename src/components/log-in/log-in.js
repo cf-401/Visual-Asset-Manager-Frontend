@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class LogIn extends React.Component {
 
   handleCreate() {
     if (this.state.email && this.state.password) {
-      let email = this.state.email;
+      const { email } = this.state;
       this.state.username = email;
       this.props.create(Object.assign({}, this.state));
     }
@@ -47,5 +48,11 @@ class LogIn extends React.Component {
     );
   }
 }
+
+
+LogIn.propTypes = {
+  create: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+};
 
 export default LogIn;

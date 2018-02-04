@@ -1,4 +1,4 @@
-export const INIT = payload => ({
+export const init = payload => ({
   type: 'INIT',
   payload,
 });
