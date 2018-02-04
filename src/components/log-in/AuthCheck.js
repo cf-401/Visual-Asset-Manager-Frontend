@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
 
 AuthCheck.propTypes = {
   auth: PropTypes.shape({}).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default connect(mapStateToProps)(AuthCheck);
