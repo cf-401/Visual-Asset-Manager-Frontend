@@ -8,6 +8,10 @@ import * as actions from '../../state/auth/actions';
 class Profile extends React.Component {
 
   render() {
+    if (!this.props.auth.user) {
+      return null;
+    }
+    console.log(this.props.auth.user.username);
     return (
       <React.Fragment>
         <LogInContainer>
@@ -23,7 +27,7 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth.user,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = (dispatch, getState) => ({
