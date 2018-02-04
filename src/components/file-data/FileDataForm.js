@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { FileDataType } from '../state/file-data/type';
-import { User } from '../state/auth/type';
+import { FileDataType } from '../../state/file-data/type';
+import { User } from '../../state/auth/type';
 
-import { photoToDataUrl } from '../util/fileData';
+import { photoToDataUrl } from '../../util/fileData';
 
 const FileDataDefault = {
   filename: '',
@@ -123,7 +123,7 @@ class FileDataForm extends React.Component {
           onChange={this.handleChange}
         />
 
-        <label>
+        <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
           <input

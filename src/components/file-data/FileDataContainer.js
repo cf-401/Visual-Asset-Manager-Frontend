@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import fileDataState from '../../state/file-data';
 import authState from '../../state/auth';
 
-import FileDataForm from '../components/FileDataForm';
-import FileDataDisplay from '../components/FileDataDisplay';
+import Auth from '../log-in/AuthCheck';
+import FileDataForm from './FileDataForm';
+import FileDataDisplay from './FileDataDisplay';
 
-class FileData extends React.Component {
+class FileDataContainer extends React.Component {
   componentWillMount() {
     const { fileDataInitialize } = this.props;
     fileDataInitialize();
@@ -25,7 +26,9 @@ class FileData extends React.Component {
 
     return (
       <div>
-        <FileDataForm submitHandler={fileDataCreate} type="creator" user={user} />
+        <Auth>
+          <FileDataForm submitHandler={fileDataCreate} type="creator" user={user} />
+        </Auth>
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
@@ -48,7 +51,7 @@ const mapDispatchToProps = dispatch => ({
   fileDateUpdate: fileData => dispatch(fileDataState.actions.updateImage(fileData)),
 });
 
-FileData.propTypes = {
+FileDataContainer.propTypes = {
   fileDataInitialize: PropTypes.func.isRequired,
   fileDataArray: PropTypes.arrayOf(PropTypes.shape(fileDataState.type)).isRequired,
   fileDataCreate: PropTypes.func.isRequired,
@@ -57,4 +60,8 @@ FileData.propTypes = {
   user: PropTypes.shape(authState.type),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FileData);
+FileDataContainer.defaultProps = {
+  user: null,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileDataContainer);

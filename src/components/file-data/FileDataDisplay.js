@@ -6,7 +6,7 @@ import FontAwesome from 'react-fontawesome';
 
 import FileDataForm from './FileDataForm';
 
-import { FileDataType } from '../state/file-data/type';
+import { FileDataType } from '../../state/file-data/type';
 
 class FileDataDisplay extends React.Component {
   constructor(props) {
