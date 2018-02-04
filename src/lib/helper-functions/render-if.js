@@ -1,5 +1,3 @@
-const renderIf = (condition, component) => {
+export const renderIf = (condition, component) => {
   return condition ? component : null;
 };
-
-export default renderIf;

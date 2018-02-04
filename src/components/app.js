@@ -8,9 +8,6 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <LogInContainer />
-        <main>
-          <Route exact path="/" component={Home} />
-        </main>
       </React.Fragment>
     );
   }
