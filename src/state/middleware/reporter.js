@@ -3,7 +3,7 @@
 export default store => next => (action) => {
   try {
     const result = next(action);
-    if (__DEBUG__) { console.log('__STATE__', store.getState()); }
+    console.log('__STATE__', store.getState());
     return result;
   } catch (error) {
     error.action = action;
