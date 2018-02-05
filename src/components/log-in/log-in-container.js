@@ -20,6 +20,10 @@ class LogInContainer extends React.Component {
     this.logOut = this.logOut.bind(this);
   }
 
+  componentWillMount() {
+    this.props.handleLogin();
+  }
+
   logOut() {
     cookie.remove('auth');
     this.props.handleLogout();
