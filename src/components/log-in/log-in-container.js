@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cookie from 'react-cookies';
+
 import { connect } from 'react-redux';
 import { renderIf } from '../../lib/helper-functions/render-if';
 
@@ -11,8 +13,20 @@ import AuthType from '../../state/auth/type';
 class LogInContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.renderUserInfo = this.renderUserInfo.bind(this);
+
     this.state = {};
+
+    this.renderUserInfo = this.renderUserInfo.bind(this);
+    this.logOut = this.logOut.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.handleLogin();
+  }
+
+  logOut() {
+    cookie.remove('auth');
+    this.props.handleLogout();
   }
 
   renderUserInfo() {

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 class AuthCheck extends React.Component {
   render() {
-    const { auth, children } = this.props;
+    const { auth } = this.props;
     if (!auth.user) {
       return null;
     }
     return (
-      { children }
+      this.props.children
     );
   }
 }
