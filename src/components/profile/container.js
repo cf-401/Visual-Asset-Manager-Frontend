@@ -1,16 +1,29 @@
 import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
-import UserUpdate from './update';
-import LogInContainer from '../log-in/log-in-container';
+import UserUpdate from './userUpdate';
+import FileData from '../file-data/FileDataContainer';
 
 import * as actions from '../../state/auth/actions';
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.editToggle = this.editToggle.bind(this);
+
+    this.state = {
+      isEditing: false,
+    };
+  }
 
   componentWillMount() {
     this.props.userLogin();
+  }
+
+  editToggle(event) {
+    event.preventDefault();
+    this.setState({ isEditing: !this.state.isEditing });
   }
 
   render() {
@@ -19,13 +32,24 @@ class Profile extends React.Component {
       return null;
     }
     return (
-      <React.Fragment>
+      <div>
+        { !this.state.isEditing ? (
+          <React.Fragment>
+            <button type="submit" onClick={this.editToggle}> edit profile </button>
+            <FileData />
+          </React.Fragment>
+      ) : (
+        <React.Fragment>
           <UserUpdate
+            editToggle={this.editToggle}
             update={this.props.userUpdate}
             delete={this.props.userDelete}
             auth={this.props.auth}
           />
-      </React.Fragment>
+        </React.Fragment>
+    )
+    }
+      </div>
     );
   }
 }

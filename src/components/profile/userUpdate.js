@@ -35,7 +35,7 @@ class UserUpdate extends React.Component {
     console.log(this.props.auth.user.password);
     return (
       <React.Fragment>
-        <h2> Welcome {this.state.username} </h2>
+        <h2 className="welcomeHeader"> Welcome {this.state.username} </h2>
         <br />
         <form onSubmit={this.onSubmit}>
         <div className="usernameForm">
@@ -69,6 +69,7 @@ class UserUpdate extends React.Component {
         onClick={() => this.props.delete()}>
         delete account
         </button>
+        <button type="submit" onClick={this.props.editToggle}> return </button>
       </React.Fragment>
     );
   }
