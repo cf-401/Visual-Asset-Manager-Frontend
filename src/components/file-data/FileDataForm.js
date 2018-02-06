@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select } from 'antd';
 
 import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
-
 import { photoToDataUrl } from '../../util/fileData';
+import EditableTagGroup from './EditableTagGroup';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
 require('style-loader!css-loader!antd/es/style/index.css');
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
-require('style-loader!css-loader!antd/es/select/style/index.css');
-require('style-loader!css-loader!antd/es/input/style/index.css');
 
-const { Option } = Select;
+
 const FileDataDefault = {
   filename: '',
   date: '',
@@ -41,6 +38,7 @@ class FileDataForm extends React.Component {
     this.renderName = this.renderName.bind(this);
     this.handleLablesChange = this.handleLablesChange.bind(this);
   }
+
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -137,15 +135,7 @@ class FileDataForm extends React.Component {
           placeholder="Enter a description"
           onChange={this.handleChange}
         />
-        <Select
-          mode="multiple"
-          sytle={{ width: '100%' }}
-          placeholder="add tags to image for filtering"
-          onChange={this.handleLablesChange}
-        >
-          <Option key="label1">Label 1</Option>
-          <Option key="label2">Label 2</Option>
-        </Select>
+        <EditableTagGroup />
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
