@@ -5,16 +5,48 @@ input {
 
 
 .usernameForm {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   float: left;
 }
 
-.email {
-  margin-top: 30px;
+.emailForm {
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.userForm {
+  border: 2px solid black;
+  display: table-cell;
+  height: 200px;
 }
 
 .welcomeHeader {
   background-color: #FF3D00;
   line-height: 90px;
   vertical-align: text-bottom;
+  text-align: center;
+}
+
+.landingHeaderWords {
+  background-color: #FF3D00;
+  line-height: 90px;
+  vertical-align: text-bottom;
+  text-align: center;
+}
+
+.userInfo {
+  border: 2px solid black;
+  display: table-cell;
+  height: 200px;
+  width: 200px;
+}
+
+.usernameLanding {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   text-align: center;
 }

@@ -34,10 +34,17 @@ class Profile extends React.Component {
     return (
       <div>
         { !this.state.isEditing ? (
-          <React.Fragment>
-            <button type="submit" onClick={this.editToggle}> edit profile </button>
-            <FileData />
-          </React.Fragment>
+          <div className="landingUserPage">
+            <h2 className="landingHeaderWords"> Welcome {this.props.auth.user.username} </h2>
+            <React.Fragment>
+              <div className="userInfo">
+                <p className="usernameLanding"> username: {this.props.auth.user.username} </p>
+                <br />
+                <button type="submit" onClick={this.editToggle}> edit profile </button>
+              </div>
+              <FileData />
+            </React.Fragment>
+          </div>
       ) : (
         <React.Fragment>
           <UserUpdate

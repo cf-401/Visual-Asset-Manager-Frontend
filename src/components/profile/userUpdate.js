@@ -32,12 +32,11 @@ class UserUpdate extends React.Component {
   }
 
   render() {
-    console.log(this.props.auth.user.password);
     return (
       <React.Fragment>
         <h2 className="welcomeHeader"> Welcome {this.state.username} </h2>
         <br />
-        <form onSubmit={this.onSubmit}>
+        <form className="userForm" onSubmit={this.onSubmit}>
         <div className="usernameForm">
           <label
           className="usernameFormLabel"
@@ -52,7 +51,7 @@ class UserUpdate extends React.Component {
           />
           </div>
           <br />
-          <div className="email">
+          <div className="emailForm">
           <label id="email">
           change your email
           </label>
