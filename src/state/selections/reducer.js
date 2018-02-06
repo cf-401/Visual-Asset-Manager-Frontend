@@ -8,23 +8,22 @@ const initalState = {
 
 export default (state = initalState, { type, payload }) => {
   switch (type) {
-    case 'INIT':
+    case 'INIT_LABELS':
       return Object.assign({}, {
         allLabels: payload,
         currentLabels: state.currentLabels,
       });
-    case 'CREATE':
-      console.log(payload);
+    case 'CREATE_LABEL':
       return Object.assign({}, {
         allLabels: [...state.allLabels, payload],
         currentLabels: state.currentLabels,
       });
-    case 'UPDATE':
+    case 'UPDATE_SELECTIONS':
       return Object.assign({}, {
         allLabels: state.allLabels,
         currentLabels: payload,
       });
-    case 'DELETE':
+    case 'DELETE_LABEL':
       return {
         allLabels: without(state.allLabels, payload),
         currentLabels: without(state.allLabels, payload),

@@ -25,7 +25,6 @@ export const create = payload => (dispatch) => {
 
 export const updateData = payload => (dispatch) => {
   const url = `${API}`;
-  console.log();
   superagent.put(url)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .send(payload)
@@ -76,14 +75,14 @@ export const uploadImage = data => (dispatch) => {
     .set('Authorization', `Bearer ${token}`)
     .attach('newImage', data.visualAsset)
     .then((res) => {
-      const metadata = {
-        path: res.body.url,
-        filename: data.filename,
-        description: data.description,
-      };
-      metadata.visualAsset = null;
-      delete metadata.visualAsset;
-      dispatch(create(metadata));
+      console.log('dat', data);
+      const toPost = Object.assign({}, data, { path: res.body.url });
+      toPost.visualAsset = null;
+      delete toPost.visualAsset;
+      toPost.preview = null;
+      delete toPost.preview;
+      console.log('toPost', toPost);
+      dispatch(create(toPost));
     })
     .catch(e => console.error('ERROR', e.message));
 };

@@ -3,6 +3,7 @@
 export default (state = [], { type, payload }) => {
   switch (type) {
     case 'INIT':
+      console.log('got data', payload);
       return payload || [];
     case 'CREATE':
       return [...state, payload];

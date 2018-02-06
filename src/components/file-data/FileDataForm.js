@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Select } from 'antd';
 
 import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
 
 import { photoToDataUrl } from '../../util/fileData';
 
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
+require('style-loader!css-loader!antd/es/style/index.css');
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
+require('style-loader!css-loader!antd/es/select/style/index.css');
+require('style-loader!css-loader!antd/es/input/style/index.css');
+
+const { Option } = Select;
 const FileDataDefault = {
   filename: '',
   date: '',
@@ -17,7 +25,6 @@ const FileDataDefault = {
 const buttonMap = {
   creator: 'Save',
   updater: 'Update',
-
 };
 
 class FileDataForm extends React.Component {
@@ -26,13 +33,13 @@ class FileDataForm extends React.Component {
     const { fileData } = this.props;
 
     this.state = fileData;
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImage = this.handleImage.bind(this);
     this.renderImage = this.renderImage.bind(this);
     this.renderPreview = this.renderPreview.bind(this);
     this.renderName = this.renderName.bind(this);
+    this.handleLablesChange = this.handleLablesChange.bind(this);
   }
 
   handleChange(e) {
@@ -59,6 +66,15 @@ class FileDataForm extends React.Component {
         this.setState({ preview });
       })
       .catch(console.error);
+  }
+
+  handleLablesChange(value) {
+    const labels = value.reduce((acc, cur) => {
+      acc[cur] = true;
+      return acc;
+    }, {});
+    this.setState({ ...labels }, () => console.log(this.state));
+    console.log(value);
   }
 
   renderImage() {
@@ -121,6 +137,15 @@ class FileDataForm extends React.Component {
           placeholder="Enter a description"
           onChange={this.handleChange}
         />
+        <Select
+          mode="multiple"
+          sytle={{ width: '100%' }}
+          placeholder="add tags to image for filtering"
+          onChange={this.handleLablesChange}
+        >
+          <Option key="label1">Label 1</Option>
+          <Option key="label2">Label 2</Option>
+        </Select>
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
@@ -129,10 +154,9 @@ class FileDataForm extends React.Component {
             type="file"
             onChange={this.handleImage}
           />
-
         </label>
-        <button type="submit">{buttonMap[type]}</button>
 
+        <button type="submit">{buttonMap[type]}</button>
       </form>
     );
   }
