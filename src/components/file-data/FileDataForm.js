@@ -105,7 +105,6 @@ class FileDataForm extends React.Component {
     const { type } = this.props;
 
     return (
-
       <form onSubmit={this.handleSubmit} className="visual-form">
         {this.renderName()}
         <input
@@ -122,7 +121,6 @@ class FileDataForm extends React.Component {
           placeholder="Enter a description"
           onChange={this.handleChange}
         />
-
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
@@ -133,7 +131,6 @@ class FileDataForm extends React.Component {
           />
 
         </label>
-
         <button type="submit">{buttonMap[type]}</button>
 
       </form>
