@@ -14,19 +14,30 @@ class LogInContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      init: true,
+      formType: 'signin',
+    };
 
     this.renderUserInfo = this.renderUserInfo.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.toggleFormType = this.toggleFormType.bind(this);
   }
 
   componentWillMount() {
-    this.props.handleLogin();
+    this.props.handleLogin()
+      .then(() => this.setState({ init: false }));
   }
 
   logOut() {
     cookie.remove('auth');
     this.props.handleLogout();
+  }
+
+  toggleFormType(e) {
+    if (e.target.name !== this.state) {
+      this.setState({ formType: e.target.name });
+    }
   }
 
   renderUserInfo() {
@@ -43,14 +54,28 @@ class LogInContainer extends React.Component {
   }
 
   render() {
-    const { auth, handleLogin, handleCreateAccount } = this.props;
-    console.log(auth);
+    const {
+      auth,
+      handleLogin,
+      handleCreateAccount,
+    } = this.props;
+    if (this.state.init) { return null; }
+
     return (
       <React.Fragment>
         {renderIf(
           !auth.user,
-          <LogIn submit={handleLogin} create={handleCreateAccount} />,
+          <React.Fragment>
+            <LogIn
+              create={handleCreateAccount}
+              login={handleLogin}
+              formType={this.state.formType}
+            />
+            <button onClick={this.toggleFormType} name="signin">Log in (existing user)</button>
+            <button onClick={this.toggleFormType} name="signup">Sign up (new user)</button>
+          </React.Fragment>,
         )}
+
         {this.renderUserInfo()}
       </React.Fragment>
     );
@@ -70,6 +95,7 @@ const mapDispatchToProps = dispatch => ({
 LogInContainer.propTypes = {
   auth: PropTypes.shape(AuthType).isRequired,
   handleLogin: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
   handleCreateAccount: PropTypes.func.isRequired,
 };
 
