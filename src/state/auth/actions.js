@@ -63,11 +63,10 @@ export const userUpdate = payload => (dispatch) => {
 
 
 export const userDelete = payload => (dispatch) => {
-
-  let URL = `${API}/${payload._id}`;
+  let URL = `${__AUTH_URL__}`;
 
   superagent.delete(URL)
-    .send(payload)
+    .set('Authorization', 'Bearer ' + bearerToken())
     .then(res => {
       console.log('!!!!', payload)
       dispatch(deleteAction(payload));
@@ -77,4 +76,9 @@ export const userDelete = payload => (dispatch) => {
 
 export const authLogout = () => ({
   type: 'DELETE_AUTH_TOKEN',
+});
+
+const deleteAction = auth => ({
+  type: 'DELETE',
+  payload: auth,
 });

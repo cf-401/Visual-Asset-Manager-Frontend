@@ -6,24 +6,24 @@ class UserUpdate extends React.Component {
 
 
 
-    this.onChangeOfPassword = this.onChangeOfPassword.bind(this);
+    this.onChangeOfEmail = this.onChangeOfEmail.bind(this);
     this.onChangeOfUsername = this.onChangeOfUsername.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username: this.props.auth.username,
-      password: this.props.auth.password,
+      username: this.props.auth.user.username,
+      email: this.props.auth.user.email,
     };
   }
 
-  onChangeOfPassword(event) {
+  onChangeOfEmail(event) {
     event.preventDefault();
-    this.setState({ username: event.target.value });
+    this.setState({ email: event.target.value });
   }
 
   onChangeOfUsername(event) {
     event.preventDefault();
-    this.setState({ password: event.target.value });
+    this.setState({ username: event.target.value });
   }
 
   onSubmit(event) {
@@ -32,26 +32,37 @@ class UserUpdate extends React.Component {
   }
 
   render() {
-    console.log(this.props.auth);
+    console.log(this.props.auth.user.password);
     return (
       <React.Fragment>
+        <h2> Welcome {this.state.username} </h2>
+        <br />
         <form onSubmit={this.onSubmit}>
-          {this.state.username}
+          <label id="username">
+          change your username
+          </label>
           <input
+            htmlFor="username"
             value={this.state.username}
             onChange={this.onChangeOfUsername}
           />
-          {this.state.password}
+          <br />
+          <label id="password">
+          change your email
+          </label>
           <input
-            value={this.state.password}
-            onChangeOfPassword={this.onChangeOfPassword}
+            htmlFor="password"
+            value={this.state.email}
+            type="password"
+            onChange={this.onChangeOfEmail}
           />
-          <button
-          type="submit"
-          onClick={() => this.props.delete(this.props.auth._id)}>
-          delete account
-          </button>
+          <button type="submit"> submit </button>
         </form>
+        <button
+        type="submit"
+        onClick={() => this.props.delete()}>
+        delete account
+        </button>
       </React.Fragment>
     );
   }

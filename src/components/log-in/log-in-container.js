@@ -14,7 +14,9 @@ class LogInContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      init: this.props.auth.init,
+    };
 
     this.renderUserInfo = this.renderUserInfo.bind(this);
     this.logOut = this.logOut.bind(this);

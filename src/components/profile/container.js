@@ -7,11 +7,16 @@ import * as actions from '../../state/auth/actions';
 
 class Profile extends React.Component {
 
+
+  componentWillMount() {
+    this.props.userLogin();
+  }
+
   render() {
-    if (!this.props.auth.user) {
+    const { auth } = this.props;
+    if (!auth.user) {
       return null;
     }
-    console.log(this.props.auth.user.username);
     return (
       <React.Fragment>
           <UserUpdate
@@ -31,6 +36,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, getState) => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
+  userLogin: user => dispatch(actions.authLogin(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
