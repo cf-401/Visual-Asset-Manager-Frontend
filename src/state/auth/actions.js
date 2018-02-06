@@ -10,7 +10,6 @@ const setUser = auth => ({
 
 export const authLogin = (user = {}) => (dispatch) => {
   const cookieToken = cookie.load('auth');
-
   const authenticateUsingToken = token => superagent.get(`${__AUTH_URL__}/validate`)
     .set('Authorization', `Bearer ${token}`);
 
