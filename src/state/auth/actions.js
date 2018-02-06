@@ -10,8 +10,6 @@ const setUser = auth => ({
 
 export const authLogin = (user = {}) => (dispatch) => {
   const cookieToken = cookie.load('auth');
-  let authMethod;
-
   const authenticateUsingToken = token => superagent.get(`${__AUTH_URL__}/validate`)
     .set('Authorization', `Bearer ${token}`);
 
@@ -19,14 +17,10 @@ export const authLogin = (user = {}) => (dispatch) => {
     .withCredentials()
     .auth(newUser.email, newUser.password);
 
+  let authMethod = () => authenticateUsingBasic(user);
+
   if (cookieToken) {
     authMethod = () => authenticateUsingToken(cookieToken);
-  }
-  if (user) {
-    authMethod = () => authenticateUsingBasic(user);
-  }
-  if (!authMethod) {
-    return console.log('no auth method');
   }
 
   return authMethod()
