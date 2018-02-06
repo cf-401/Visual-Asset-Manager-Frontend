@@ -1,3 +1,4 @@
+import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './update';

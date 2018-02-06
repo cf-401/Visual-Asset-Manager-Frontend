@@ -38,7 +38,11 @@ class UserUpdate extends React.Component {
         <h2> Welcome {this.state.username} </h2>
         <br />
         <form onSubmit={this.onSubmit}>
-          <label id="username">
+        <div className="usernameForm">
+          <label
+          className="usernameFormLabel"
+          id="username"
+          >
           change your username
           </label>
           <input
@@ -46,15 +50,18 @@ class UserUpdate extends React.Component {
             value={this.state.username}
             onChange={this.onChangeOfUsername}
           />
+          </div>
           <br />
-          <label id="password">
+          <div className="email">
+          <label id="email">
           change your email
           </label>
           <input
-            htmlFor="password"
+            htmlFor="email"
             value={this.state.email}
             onChange={this.onChangeOfEmail}
           />
+          </div>
           <button type="submit"> submit </button>
         </form>
         <button
