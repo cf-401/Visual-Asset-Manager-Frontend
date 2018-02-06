@@ -51,7 +51,7 @@ export const authCreateAccount = user => dispatch => superagent.post(`${__AUTH_U
 
 export const userUpdate = payload => (dispatch) => {
 
-  let URL = `${__AUTH_URL__}/${payload._id}`;
+  let URL = `${__AUTH_URL__}/update`;
 
   superagent.put(URL)
     .set('Authorization', 'Bearer ' + bearerToken())

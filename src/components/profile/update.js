@@ -53,7 +53,6 @@ class UserUpdate extends React.Component {
           <input
             htmlFor="password"
             value={this.state.email}
-            type="password"
             onChange={this.onChangeOfEmail}
           />
           <button type="submit"> submit </button>
