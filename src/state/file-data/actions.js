@@ -75,13 +75,11 @@ export const uploadImage = data => (dispatch) => {
     .set('Authorization', `Bearer ${token}`)
     .attach('newImage', data.visualAsset)
     .then((res) => {
-      console.log('dat', data);
       const toPost = Object.assign({}, data, { path: res.body.url });
       toPost.visualAsset = null;
       delete toPost.visualAsset;
       toPost.preview = null;
       delete toPost.preview;
-      console.log('toPost', toPost);
       dispatch(create(toPost));
     })
     .catch(e => console.error('ERROR', e.message));
