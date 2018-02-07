@@ -39,10 +39,13 @@ class Profile extends React.Component {
             <React.Fragment>
               <div className="userInfo">
                 <p className="usernameLanding"> username: {this.props.auth.user.username} </p>
+                <p className="emailLanding"> email: {this.props.auth.user.email} </p>
                 <br />
                 <button type="submit" onClick={this.editToggle}> edit profile </button>
               </div>
-              <FileData />
+              <div className="uploadForm">
+                <FileData />
+              </div>
             </React.Fragment>
           </div>
       ) : (

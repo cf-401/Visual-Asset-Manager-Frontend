@@ -39,9 +39,9 @@ input {
 
 .userInfo {
   border: 2px solid black;
-  display: table-cell;
-  height: 200px;
-  width: 200px;
+  display: flex;
+  height: 250px;
+  width: 250px;
 }
 
 .usernameLanding {
@@ -49,4 +49,19 @@ input {
   margin-left: 10px;
   margin-right: 10px;
   text-align: center;
+}
+
+.emailLanding {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.uploadForm {
+  border: 2px solid black;
+  display: table-cell;
+  height: 250px;
+  width: 250px;
+
 }
