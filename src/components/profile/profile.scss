@@ -39,9 +39,9 @@ input {
 
 .userInfo {
   border: 2px solid black;
-  display: flex;
+  display: inline-flex;
   height: 333px;
-  width: 250px;
+  width: 264px;
 }
 
 .usernameLanding {
@@ -62,6 +62,14 @@ input {
   border: 2px solid black;
   display: table-cell;
   height: 333px;
-  width: 250px;
+  width: 264px;
+}
 
+.content {
+  border: 2px solid black;
+  height: 666px;
+  width:1100px;
+  float:right;
+  display: inline-block;
+  margin-top: 0px;
 }

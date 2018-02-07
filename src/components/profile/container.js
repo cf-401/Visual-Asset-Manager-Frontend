@@ -47,6 +47,8 @@ class Profile extends React.Component {
                 <br />
                 <button type="submit" onClick={this.editToggle}> edit profile </button>
               </div>
+              <div className="content">
+              </div>
               <div className="uploadForm">
                 <FileData />
               </div>
