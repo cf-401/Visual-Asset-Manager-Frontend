@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import fileDataState from '../../state/file-data';
 import authState from '../../state/auth';
 
+import FilterSelector from '../filtering/FilterSelector';
 import AuthCheck from '../log-in/AuthCheck';
 import FileDataForm from './FileDataForm';
 import FileDataDisplay from './FileDataDisplay';
@@ -29,6 +30,7 @@ class FileDataContainer extends React.Component {
         <AuthCheck>
           <FileDataForm submitHandler={fileDataCreate} type="creator" user={auth.user} />
         </AuthCheck>
+        <FilterSelector />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
