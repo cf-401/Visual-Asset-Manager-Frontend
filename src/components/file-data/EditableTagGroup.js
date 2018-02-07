@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Input, Tooltip, Icon } from 'antd';
+import Complete from '../form-components/AutoComplete';
 
 require('style-loader!css-loader!antd/es/tag/style/index.css');
 require('style-loader!css-loader!antd/es/input/style/index.css');
+require('style-loader!css-loader!antd/es/auto-complete/style/index.css');
 
 class EditableTagGroup extends React.Component {
   constructor(props) {
@@ -25,12 +27,14 @@ class EditableTagGroup extends React.Component {
 
   handleClose(removedTag) {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
-    console.log(tags);
-    this.setState({ tags });
+    this.setState({ tags }, () => this.props.handleLablesChange(tags));
   }
 
   showInput() {
-    this.setState({ inputVisible: true }, () => this.input.focus());
+    this.setState(
+      { inputVisible: true },
+      () => this.input.focus(),
+    );
   }
 
   handleInputChange(e) {
@@ -46,7 +50,7 @@ class EditableTagGroup extends React.Component {
       tags,
       inputVisible: false,
       inputValue: '',
-    });
+    }, () => this.props.handleLablesChange(tags));
   }
 
   saveInputRef(input) {
@@ -55,7 +59,6 @@ class EditableTagGroup extends React.Component {
 
   render() {
     const { tags, inputVisible, inputValue } = this.state;
-
     return (
       <div>
         {tags.map((tag, index) => {

@@ -71,8 +71,7 @@ class FileDataForm extends React.Component {
       acc[cur] = true;
       return acc;
     }, {});
-    this.setState({ ...labels }, () => console.log(this.state));
-    console.log(value);
+    this.setState({ labels }, () => console.log(this.state));
   }
 
   renderImage() {
@@ -135,7 +134,7 @@ class FileDataForm extends React.Component {
           placeholder="Enter a description"
           onChange={this.handleChange}
         />
-        <EditableTagGroup />
+        <EditableTagGroup handleLablesChange={this.handleLablesChange} />
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
