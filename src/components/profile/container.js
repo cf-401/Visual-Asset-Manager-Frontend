@@ -35,26 +35,11 @@ class Profile extends React.Component {
     if (!auth.user) {
       return null;
     }
+    console.log(this.props.auth.user.group);
     return (
-      <div>
-        { !this.state.isEditing ? (
           <div className="landingUserPage">
-            <h2 className="landingHeaderWords"> Welcome {this.props.auth.user.username} </h2>
-            <React.Fragment>
-              <div className="userInfo">
-                <p className="usernameLanding"> username: {this.props.auth.user.username} </p>
-                <p className="emailLanding"> email: {this.props.auth.user.email} </p>
-                <br />
-                <button type="submit" onClick={this.editToggle}> edit profile </button>
-              </div>
-              <div className="content">
-              </div>
-              <div className="uploadForm">
-                <FileData />
-              </div>
-            </React.Fragment>
-          </div>
-      ) : (
+          <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
+          <div className="userInfo">
         <React.Fragment>
           <UserUpdate
             onComplete={this.onComplete}
@@ -63,8 +48,7 @@ class Profile extends React.Component {
             auth={this.props.auth}
           />
         </React.Fragment>
-    )
-    }
+        </div>
       </div>
     );
   }

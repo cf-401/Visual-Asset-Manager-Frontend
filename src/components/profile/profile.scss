@@ -8,20 +8,16 @@ input {
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-bottom: 40px;
   float: left;
 }
 
 .emailForm {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.userForm {
-  border: 2px solid black;
-  display: table-cell;
-  height: 200px;
-}
 
 .welcomeHeader {
   background-color: #FF3D00;
@@ -39,8 +35,12 @@ input {
 
 .userInfo {
   border: 2px solid black;
+  border-radius: 6px;
   display: inline-flex;
-  height: 333px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+  height: 666px;
   width: 264px;
 }
 
@@ -58,12 +58,6 @@ input {
   text-align: center;
 }
 
-.uploadForm {
-  border: 2px solid black;
-  display: table-cell;
-  height: 333px;
-  width: 264px;
-}
 
 .content {
   border: 2px solid black;
@@ -72,4 +66,31 @@ input {
   float:right;
   display: inline-block;
   margin-top: 0px;
+}
+
+.groupForm {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.aboutMeInput {
+  width: 200px;
+}
+
+.aboutMeForm {
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.passwordForm {
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.deleteButton {
+  margin-top: 40px;
 }
