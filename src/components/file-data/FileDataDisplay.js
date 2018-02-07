@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
+import AssetCard from '../form-components/AssetCard';
 import FileDataForm from './FileDataForm';
 
 import { FileDataType } from '../../state/file-data/type';
@@ -36,7 +37,7 @@ class FileDataDisplay extends React.Component {
               />
               <h4>{item.name}
               </h4>
-              <FileDataForm fileData={item} submitHandler={fileDateUpdate} type="updater" />
+              <AssetCard item={item} submitHandler={fileDateUpdate} type="updater" />
             </li>))}
       </ul>
     );

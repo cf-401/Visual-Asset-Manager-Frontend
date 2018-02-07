@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Tag, Input, Tooltip, Icon } from 'antd';
 import Complete from '../form-components/AutoComplete';
 
+require('style-loader!css-loader!antd/es/style/index.css');
 require('style-loader!css-loader!antd/es/tag/style/index.css');
 require('style-loader!css-loader!antd/es/input/style/index.css');
 require('style-loader!css-loader!antd/es/auto-complete/style/index.css');

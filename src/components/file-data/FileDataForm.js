@@ -7,7 +7,6 @@ import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
-require('style-loader!css-loader!antd/es/style/index.css');
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
 
 
