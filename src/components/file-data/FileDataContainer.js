@@ -5,6 +5,7 @@ import selections from '../../state/selections';
 
 import fileDataState from '../../state/file-data';
 import authState from '../../state/auth';
+import { getFilteredData } from '../../state/file-data/selectors';
 
 import FilterSelector from '../filtering/FilterSelector';
 import AuthCheck from '../log-in/AuthCheck';
@@ -32,7 +33,7 @@ class FileDataContainer extends React.Component {
         <AuthCheck>
           <FileDataForm submitHandler={fileDataCreate} type="creator" user={auth.user} />
         </AuthCheck>
-        <FilterSelector handleChange={updateCurrentFilters} />
+        <FilterSelector updateCurrentFilters={updateCurrentFilters} />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
@@ -44,7 +45,7 @@ class FileDataContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  fileDataArray: state.fileData,
+  fileDataArray: getFilteredData(state),
   auth: state.auth,
 });
 

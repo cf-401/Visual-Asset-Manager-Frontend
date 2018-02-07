@@ -3,7 +3,7 @@ import { Tag } from 'antd';
 
 const { CheckableTag } = Tag;
 
-const tagsFromServer = ['Movies', 'Books', 'Music', 'Sports'];
+const tagsFromServer = ['Tag 2', 'Stuff', 'Music', 'Sports'];
 
 class FilterSelector extends React.Component {
   constructor(props) {
@@ -15,13 +15,16 @@ class FilterSelector extends React.Component {
   }
 
   handleChange(tag, checked) {
-    const { handleChange } = this.props;
+    const { updateCurrentFilters } = this.props;
     const { selectedTags } = this.state;
     const nextSelectedTags = checked ?
       [...selectedTags, tag] :
       selectedTags.filter(t => t !== tag);
     console.log('Filter images by: ', nextSelectedTags);
-    this.setState({ selectedTags: nextSelectedTags }, () => handleChange(nextSelectedTags));
+    this.setState(
+      { selectedTags: nextSelectedTags },
+      () => updateCurrentFilters(nextSelectedTags),
+    );
   }
 
   render() {
