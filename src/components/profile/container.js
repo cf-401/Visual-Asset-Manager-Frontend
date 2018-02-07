@@ -11,7 +11,7 @@ class Profile extends React.Component {
     super(props);
 
     this.editToggle = this.editToggle.bind(this);
-
+    this.onComplete = this.onComplete.bind(this);
     this.state = {
       isEditing: false,
     };
@@ -24,6 +24,10 @@ class Profile extends React.Component {
   editToggle(event) {
     event.preventDefault();
     this.setState({ isEditing: !this.state.isEditing });
+  }
+
+  onComplete(newState) {
+    this.props.userUpdate(newState);
   }
 
   render() {
@@ -51,8 +55,8 @@ class Profile extends React.Component {
       ) : (
         <React.Fragment>
           <UserUpdate
+            onComplete={this.onComplete}
             editToggle={this.editToggle}
-            update={this.props.userUpdate}
             delete={this.props.userDelete}
             auth={this.props.auth}
           />

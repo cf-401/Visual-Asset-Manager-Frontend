@@ -28,7 +28,7 @@ class UserUpdate extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.update(Object.assign({}, this.state));
+    this.props.onComplete(Object.assign({},this.state));
   }
 
   render() {
