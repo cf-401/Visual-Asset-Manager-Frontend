@@ -15,12 +15,13 @@ class FilterSelector extends React.Component {
   }
 
   handleChange(tag, checked) {
+    const { handleChange } = this.props;
     const { selectedTags } = this.state;
     const nextSelectedTags = checked ?
       [...selectedTags, tag] :
       selectedTags.filter(t => t !== tag);
     console.log('Filter images by: ', nextSelectedTags);
-    this.setState({ selectedTags: nextSelectedTags });
+    this.setState({ selectedTags: nextSelectedTags }, () => handleChange(nextSelectedTags));
   }
 
   render() {

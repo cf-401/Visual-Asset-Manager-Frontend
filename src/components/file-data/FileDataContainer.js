@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import selections from '../../state/selections';
 
 import fileDataState from '../../state/file-data';
 import authState from '../../state/auth';
@@ -23,6 +24,7 @@ class FileDataContainer extends React.Component {
       fileDataDelete,
       fileDateUpdate,
       fileDataCreate,
+      updateCurrentFilters,
     } = this.props;
 
     return (
@@ -30,7 +32,7 @@ class FileDataContainer extends React.Component {
         <AuthCheck>
           <FileDataForm submitHandler={fileDataCreate} type="creator" user={auth.user} />
         </AuthCheck>
-        <FilterSelector />
+        <FilterSelector handleChange={updateCurrentFilters} />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
@@ -51,6 +53,7 @@ const mapDispatchToProps = dispatch => ({
   fileDataDelete: id => dispatch(fileDataState.actions.remove(id)),
   fileDataInitialize: () => dispatch(fileDataState.actions.init()),
   fileDateUpdate: fileData => dispatch(fileDataState.actions.updateImage(fileData)),
+  updateCurrentFilters: filters => dispatch(selections.actions.update(filters)),
 });
 
 FileDataContainer.propTypes = {
@@ -60,6 +63,7 @@ FileDataContainer.propTypes = {
   fileDataDelete: PropTypes.func.isRequired,
   fileDateUpdate: PropTypes.func.isRequired,
   auth: PropTypes.shape(authState.type),
+  updateCurrentFilters: PropTypes.func.isRequired,
 };
 
 FileDataContainer.defaultProps = {
