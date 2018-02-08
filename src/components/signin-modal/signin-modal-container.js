@@ -1,48 +1,28 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import LogIn from '../log-in/log-in.js'
+import LogInContainer from '../log-in/log-in-container';
+
 import { renderIf } from '../../lib/helper-functions/render-if';
 
-import '../signin-modal.scss';
+import './signin-modal.scss';
 
 class SignInModal extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      init: true,
-      formType: 'signin',
     };
   }
-this.handleLoggedIn = this.handleLoggedIn.bind(this);
-}
 
-
-handleLoggedIn(){
-  this.setState([e.target.id]: e.target.value)
-}
-
-
-render(){
-
-  return(
-    <div className="overlay">
-      <div className="modal">
-        if (handleLoggedIn) {
-          return LogIn[renderSignInForm]
-        } else {
-          return LogIn[renderSignUpForm]
-        }
-
-//conditional for signin & signup
-        // if new user, LogIn.renderSignUpForm
-        // if db user, LogIn.renderSignInForm
-
-// {renderIf()}
-
+  render() {
+    return (
+      <div className="overlay">
+        <div className="modal">
+          <LogInContainer toggleModal={this.props.toggleModal} />
+        </div>
       </div>
-    </div>
-  )
+    );
+  }
 }
 
 export default SignInModal;
