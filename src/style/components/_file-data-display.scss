@@ -1,0 +1,24 @@
+.file-data-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row wrap;
+  justify-content: space-evenly;
+
+  li {
+    @include box-3d;
+    padding: 5px;
+    width: 200px;
+    margin-top: 10px;
+    font-weight: bold;
+    background-color: white;
+  }
+
+}

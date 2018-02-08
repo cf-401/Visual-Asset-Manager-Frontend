@@ -1,8 +1,6 @@
-import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
-import FileData from '../file-data/FileDataContainer';
 
 import * as actions from '../../state/auth/actions';
 
@@ -21,13 +19,13 @@ class Profile extends React.Component {
     this.props.userLogin();
   }
 
+  onComplete(newState) {
+    this.props.userUpdate(newState);
+  }
+
   editToggle(event) {
     event.preventDefault();
     this.setState({ isEditing: !this.state.isEditing });
-  }
-
-  onComplete(newState) {
-    this.props.userUpdate(newState);
   }
 
   render() {
@@ -37,17 +35,17 @@ class Profile extends React.Component {
     }
     console.log(this.props.auth.user.group);
     return (
-          <div className="landingUserPage">
-          <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
-          <div className="userInfo">
-        <React.Fragment>
-          <UserUpdate
-            onComplete={this.onComplete}
-            editToggle={this.editToggle}
-            delete={this.props.userDelete}
-            auth={this.props.auth}
-          />
-        </React.Fragment>
+      <div className="landingUserPage">
+        <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
+        <div className="userInfo">
+          <React.Fragment>
+            <UserUpdate
+              onComplete={this.onComplete}
+              editToggle={this.editToggle}
+              delete={this.props.userDelete}
+              auth={this.props.auth}
+            />
+          </React.Fragment>
         </div>
       </div>
     );

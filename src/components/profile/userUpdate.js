@@ -4,8 +4,6 @@ class UserUpdate extends React.Component {
   constructor(props) {
     super(props);
 
-
-
     this.onChangeOfEmail = this.onChangeOfEmail.bind(this);
     this.onChangeOfUsername = this.onChangeOfUsername.bind(this);
     this.onChangeOfGroup = this.onChangeOfGroup.bind(this);
@@ -48,7 +46,7 @@ class UserUpdate extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.onComplete(Object.assign({},this.state));
+    this.props.onComplete(Object.assign({}, this.state));
   }
 
   render() {
@@ -79,9 +77,9 @@ class UserUpdate extends React.Component {
           </div>
           <br />
           <div className="emailForm">
-          <label id="email">
+            <label id="email">
           change your email
-          </label>
+            </label>
             <input
               htmlFor="email"
               value={this.state.email}
@@ -100,9 +98,9 @@ class UserUpdate extends React.Component {
             />
           </div>
           <div className="aboutMeForm">
-          <label id="about">
+            <label id="about">
           change your about me
-          </label>
+            </label>
             <textarea
               rows="10"
               htmlFor="about"
