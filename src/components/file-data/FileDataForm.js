@@ -132,6 +132,7 @@ class FileDataForm extends React.Component {
           value={this.state.description}
           placeholder="Enter a description"
           onChange={this.handleChange}
+          required
         />
         <EditableTagGroup handleLablesChange={this.handleLablesChange} />
         <label htmlFor="path">

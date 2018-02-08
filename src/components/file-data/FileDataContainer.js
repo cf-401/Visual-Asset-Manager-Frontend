@@ -14,8 +14,9 @@ import FileDataDisplay from './FileDataDisplay';
 
 class FileDataContainer extends React.Component {
   componentWillMount() {
-    const { fileDataInitialize } = this.props;
+    const { fileDataInitialize, labelInitialize } = this.props;
     fileDataInitialize();
+    labelInitialize();
   }
 
   render() {
@@ -47,6 +48,7 @@ class FileDataContainer extends React.Component {
 const mapStateToProps = state => ({
   fileDataArray: getFilteredData(state),
   auth: state.auth,
+  allFilters: state.selections.allLabels,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -55,6 +57,7 @@ const mapDispatchToProps = dispatch => ({
   fileDataInitialize: () => dispatch(fileDataState.actions.init()),
   fileDateUpdate: fileData => dispatch(fileDataState.actions.updateImage(fileData)),
   updateCurrentFilters: filters => dispatch(selections.actions.update(filters)),
+  labelInitialize: () => dispatch(selections.actions.init()),
 });
 
 FileDataContainer.propTypes = {
@@ -65,6 +68,7 @@ FileDataContainer.propTypes = {
   fileDateUpdate: PropTypes.func.isRequired,
   auth: PropTypes.shape(authState.type),
   updateCurrentFilters: PropTypes.func.isRequired,
+  labelInitialize: PropTypes.func.isRequired,
 };
 
 FileDataContainer.defaultProps = {
