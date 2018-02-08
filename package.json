@@ -49,7 +49,7 @@
     "file-loader": "^1.1.6",
     "font-awesome": "^4.7.0",
     "html-webpack-plugin": "^2.30.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
     "prop-types": "^15.6.0",
@@ -68,5 +68,13 @@
     "uuid": "^3.1.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cf-401/Visual-Asset-Manager-Frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cf-401/Visual-Asset-Manager-Frontend/issues"
+  },
+  "homepage": "https://github.com/cf-401/Visual-Asset-Manager-Frontend#readme"
 }

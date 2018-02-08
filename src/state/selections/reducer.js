@@ -9,6 +9,7 @@ const initalState = {
 export default (state = initalState, { type, payload }) => {
   switch (type) {
     case 'INIT_LABELS':
+      console.log('inital labels', payload);
       return Object.assign({}, {
         allLabels: payload || [],
         currentLabels: state.currentLabels,

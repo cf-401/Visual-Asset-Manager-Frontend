@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import selections from '../../state/selections';
 
 import fileDataState from '../../state/file-data';
 import selections from '../../state/selections';
 import authState from '../../state/auth';
+import { getFilteredData } from '../../state/file-data/selectors';
 
+import FilterSelector from '../filtering/FilterSelector';
 import AuthCheck from '../log-in/AuthCheck';
 import FileDataForm from './FileDataForm';
 import FileDataDisplay from './FileDataDisplay';
 
 class FileDataContainer extends React.Component {
   componentWillMount() {
-    const { fileDataInitialize } = this.props;
+    const { fileDataInitialize, labelInitialize } = this.props;
     fileDataInitialize();
+    labelInitialize();
   }
 
   render() {
@@ -25,6 +29,8 @@ class FileDataContainer extends React.Component {
       fileDataCreate,
       allLabels,
       makeNewLabel,
+      updateCurrentFilters,
+      allFilters,
     } = this.props;
     return (
       <div>
@@ -37,6 +43,7 @@ class FileDataContainer extends React.Component {
             makeNewLabel={makeNewLabel}
           />
         </AuthCheck>
+        <FilterSelector updateCurrentFilters={updateCurrentFilters} allFilters={allFilters} />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
@@ -48,9 +55,9 @@ class FileDataContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  fileDataArray: state.fileData,
+  fileDataArray: getFilteredData(state),
   auth: state.auth,
-  allLabels: selections.selectors.getAllLabels(state),
+  allFilters: selections.selectors.getAllLabels(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -59,6 +66,8 @@ const mapDispatchToProps = dispatch => ({
   fileDataInitialize: () => dispatch(fileDataState.actions.init()),
   fileDateUpdate: fileData => dispatch(fileDataState.actions.updateImage(fileData)),
   makeNewLabel: label => dispatch(selections.actions.create(label)),
+  updateCurrentFilters: filters => dispatch(selections.actions.update(filters)),
+  labelInitialize: () => dispatch(selections.actions.init()),
 });
 
 FileDataContainer.propTypes = {
@@ -70,6 +79,8 @@ FileDataContainer.propTypes = {
   makeNewLabel: PropTypes.func.isRequired,
   allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   auth: PropTypes.shape(authState.type),
+  updateCurrentFilters: PropTypes.func.isRequired,
+  labelInitialize: PropTypes.func.isRequired,
 };
 
 FileDataContainer.defaultProps = {
