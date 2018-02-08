@@ -25,11 +25,12 @@ class FileDataContainer extends React.Component {
       fileDataDelete,
       fileDateUpdate,
       fileDataCreate,
-      allLabels,
       makeNewLabel,
       updateCurrentFilters,
       allFilters,
     } = this.props;
+
+    console.log('rendering');
     return (
       <div>
         <AuthCheck>
@@ -75,7 +76,7 @@ FileDataContainer.propTypes = {
   fileDataDelete: PropTypes.func.isRequired,
   fileDateUpdate: PropTypes.func.isRequired,
   makeNewLabel: PropTypes.func.isRequired,
-  allLabels: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  allFilters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   auth: PropTypes.shape(authState.type),
   updateCurrentFilters: PropTypes.func.isRequired,
   labelInitialize: PropTypes.func.isRequired,

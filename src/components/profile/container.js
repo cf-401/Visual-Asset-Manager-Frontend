@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
 
+import FileList from './fileList';
+
 import * as actions from '../../state/auth/actions';
+import * as fileActions from '../../state/file-data/actions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -17,6 +20,7 @@ class Profile extends React.Component {
 
   componentWillMount() {
     this.props.userLogin();
+    this.props.fileDataInitialize();
   }
 
   onComplete(newState) {
@@ -33,7 +37,6 @@ class Profile extends React.Component {
     if (!auth.user) {
       return null;
     }
-    console.log(this.props.auth.user.group);
     return (
       <div className="landingUserPage">
         <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
@@ -46,6 +49,10 @@ class Profile extends React.Component {
               user={this.props.auth.user}
             />
           </React.Fragment>
+          <FileList
+            fileData={this.props.fileData}
+            user={this.props.auth.user}
+          />
         </div>
       </div>
     );
@@ -54,12 +61,14 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  fileData: state.fileData,
 });
 
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = dispatch => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
   userLogin: user => dispatch(actions.authLogin(user)),
+  fileDataInitialize: () => dispatch(fileActions.init()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

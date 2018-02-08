@@ -10,7 +10,6 @@ import EditableTagGroup from './EditableTagGroup';
 require('style-loader!css-loader!antd/es/style/index.css');
 /* eslint-enable */
 
-
 const FileDataDefault = {
   filename: '',
   date: '',
@@ -38,7 +37,6 @@ class FileDataForm extends React.Component {
     this.renderName = this.renderName.bind(this);
     this.handleLablesChange = this.handleLablesChange.bind(this);
   }
-
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });

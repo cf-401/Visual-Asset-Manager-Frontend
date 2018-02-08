@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { renderIf } from '../../lib/helper-functions/render-if';
 
 import LogIn from './log-in';
-
 import * as actions from '../../state/auth/actions';
 import AuthType from '../../state/auth/type';
+import FileDataContainer from '../file-data/FileDataContainer';
 
 class LogInContainer extends React.Component {
   constructor(props) {
@@ -77,6 +77,7 @@ class LogInContainer extends React.Component {
         )}
 
         {this.renderUserInfo()}
+        <FileDataContainer />
       </React.Fragment>
     );
   }

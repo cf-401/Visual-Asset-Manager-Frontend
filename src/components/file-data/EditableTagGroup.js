@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Tag, Input, Tooltip, Icon, AutoComplete } from 'antd';
 import { includes } from 'lodash';
 
+
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/style/index.css');
 require('style-loader!css-loader!antd/es/tag/style/index.css');
@@ -13,6 +14,7 @@ require('style-loader!css-loader!antd/es/auto-complete/style/index.css');
 require('style-loader!css-loader!antd/es/dropdown/style/index.css');
 require('style-loader!css-loader!antd/es/select/style/index.css');
 /* eslint-enable */
+
 
 class EditableTagGroup extends React.Component {
   constructor(props) {
@@ -70,6 +72,7 @@ class EditableTagGroup extends React.Component {
       makeNewLabel,
       handleLablesChange,
     } = this.props;
+
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
@@ -151,5 +154,6 @@ EditableTagGroup.propTypes = {
   allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   makeNewLabel: PropTypes.func.isRequired,
 };
+
 
 export default EditableTagGroup;
