@@ -6,8 +6,9 @@ import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
 
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved, import/no-extraneous-dependencies
+/* eslint-disable */
+require('style-loader!css-loader!antd/es/style/index.css');
+/* eslint-enable */
 
 
 const FileDataDefault = {
