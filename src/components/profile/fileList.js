@@ -18,7 +18,6 @@ class FileList extends React.Component {
 }
 
   render() {
-    console.log(this.filterUser());
     return(
       <div>
         <ul>

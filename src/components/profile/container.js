@@ -36,7 +36,6 @@ class Profile extends React.Component {
     if (!auth.user) {
       return null;
     }
-    console.log(this.props.fileData);
     return (
       <div className="landingUserPage">
         <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
