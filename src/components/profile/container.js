@@ -2,6 +2,7 @@ import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
+import FileList from './fileList';
 import FileData from '../file-data/FileDataContainer';
 
 import * as actions from '../../state/auth/actions';
@@ -35,19 +36,24 @@ class Profile extends React.Component {
     if (!auth.user) {
       return null;
     }
-    console.log(this.props.auth.user.group);
+    console.log(this.props.fileData);
     return (
-          <div className="landingUserPage">
-          <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
-          <div className="userInfo">
-        <React.Fragment>
-          <UserUpdate
-            onComplete={this.onComplete}
-            editToggle={this.editToggle}
-            delete={this.props.userDelete}
+      <div className="landingUserPage">
+        <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
+        <div className="userInfo">
+          <React.Fragment>
+            <UserUpdate
+              onComplete={this.onComplete}
+              editToggle={this.editToggle}
+              delete={this.props.userDelete}
+              auth={this.props.auth}
+            />
+          </React.Fragment>
+          <FileData />
+          <FileList
+            fileData={this.props.fileData}
             auth={this.props.auth}
           />
-        </React.Fragment>
         </div>
       </div>
     );
@@ -56,6 +62,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  fileData: state.fileData,
 });
 
 const mapDispatchToProps = (dispatch, getState) => ({
