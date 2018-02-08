@@ -68,5 +68,13 @@
     "uuid": "^3.1.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cf-401/Visual-Asset-Manager-Frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cf-401/Visual-Asset-Manager-Frontend/issues"
+  },
+  "homepage": "https://github.com/cf-401/Visual-Asset-Manager-Frontend#readme"
 }
