@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import fileDataState from '../../state/file-data';
+import selectionsState from '../../state/selections';
 import authState from '../../state/auth';
 
 import AuthCheck from '../log-in/AuthCheck';
@@ -22,12 +23,17 @@ class FileDataContainer extends React.Component {
       fileDataDelete,
       fileDateUpdate,
       fileDataCreate,
+      allLabels,
     } = this.props;
-
     return (
       <div>
         <AuthCheck>
-          <FileDataForm submitHandler={fileDataCreate} type="creator" user={auth.user} />
+          <FileDataForm
+            submitHandler={fileDataCreate}
+            type="creator"
+            user={auth.user}
+            allLabels={allLabels}
+          />
         </AuthCheck>
         <FileDataDisplay
           toDisplay={fileDataArray}
@@ -42,6 +48,7 @@ class FileDataContainer extends React.Component {
 const mapStateToProps = state => ({
   fileDataArray: state.fileData,
   auth: state.auth,
+  allLabels: selectionsState.selectors.getAllLabels(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -57,6 +64,7 @@ FileDataContainer.propTypes = {
   fileDataCreate: PropTypes.func.isRequired,
   fileDataDelete: PropTypes.func.isRequired,
   fileDateUpdate: PropTypes.func.isRequired,
+  allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   auth: PropTypes.shape(authState.type),
 };
 
