@@ -6,7 +6,7 @@ import FileList from './fileList';
 import FileData from '../file-data/FileDataContainer';
 
 import * as actions from '../../state/auth/actions';
-
+import * as fileActions from '../../state/file-data/actions';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +20,7 @@ class Profile extends React.Component {
 
   componentWillMount() {
     this.props.userLogin();
+    this.props.fileDataInitialize();
   }
 
   editToggle(event) {
@@ -48,7 +49,6 @@ class Profile extends React.Component {
               auth={this.props.auth}
             />
           </React.Fragment>
-          <FileData />
           <FileList
             fileData={this.props.fileData}
             auth={this.props.auth}
@@ -68,6 +68,7 @@ const mapDispatchToProps = (dispatch, getState) => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
   userLogin: user => dispatch(actions.authLogin(user)),
+  fileDataInitialize: () => dispatch(fileActions.init()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
