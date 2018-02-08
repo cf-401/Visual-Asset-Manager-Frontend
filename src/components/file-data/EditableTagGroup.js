@@ -101,7 +101,6 @@ class EditableTagGroup extends React.Component {
   }
 }
 
-
 EditableTagGroup.propTypes = {
   handleLablesChange: PropTypes.func.isRequired,
 };
