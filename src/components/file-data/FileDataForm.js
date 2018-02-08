@@ -6,9 +6,11 @@ import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
 
+
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/style/index.css');
 /* eslint-enable */
+
 
 
 const FileDataDefault = {

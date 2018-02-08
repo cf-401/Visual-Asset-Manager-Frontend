@@ -12,8 +12,7 @@ class App extends React.Component {
 
         <Route exact path="/" component={LogInContainer} />
         <Route exact path="/profile" component={Profile} />
-        <FileData />
-
+        
       </React.Fragment>
     );
   }

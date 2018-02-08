@@ -2,10 +2,11 @@ import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
+import FileList from './fileList';
 import FileData from '../file-data/FileDataContainer';
 
 import * as actions from '../../state/auth/actions';
-
+import * as fileActions from '../../state/file-data/actions';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class Profile extends React.Component {
 
   componentWillMount() {
     this.props.userLogin();
+    this.props.fileDataInitialize();
   }
 
   editToggle(event) {
@@ -35,19 +37,22 @@ class Profile extends React.Component {
     if (!auth.user) {
       return null;
     }
-    console.log(this.props.auth.user.group);
     return (
-          <div className="landingUserPage">
-          <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
-          <div className="userInfo">
-        <React.Fragment>
-          <UserUpdate
-            onComplete={this.onComplete}
-            editToggle={this.editToggle}
-            delete={this.props.userDelete}
+      <div className="landingUserPage">
+        <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
+        <div className="userInfo">
+          <React.Fragment>
+            <UserUpdate
+              onComplete={this.onComplete}
+              editToggle={this.editToggle}
+              delete={this.props.userDelete}
+              auth={this.props.auth}
+            />
+          </React.Fragment>
+          <FileList
+            fileData={this.props.fileData}
             auth={this.props.auth}
           />
-        </React.Fragment>
         </div>
       </div>
     );
@@ -56,12 +61,14 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  fileData: state.fileData,
 });
 
 const mapDispatchToProps = (dispatch, getState) => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
   userLogin: user => dispatch(actions.authLogin(user)),
+  fileDataInitialize: () => dispatch(fileActions.init()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
