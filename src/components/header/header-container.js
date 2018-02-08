@@ -11,7 +11,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: true,
+      showModal: false,
     };
     this.renderUserName = this.renderUserName.bind(this);
     this.toggleModal = this.toggleModal.bind(this);

@@ -70,6 +70,7 @@ class LogInContainer extends React.Component {
               create={handleCreateAccount}
               login={handleLogin}
               formType={this.state.formType}
+              toggleModal={this.props.toggleModal}
             />
             <button onClick={this.toggleFormType} name="signin">Log in (existing user)</button>
             <button onClick={this.toggleFormType} name="signup">Sign up (new user)</button>

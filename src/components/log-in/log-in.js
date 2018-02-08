@@ -19,8 +19,12 @@ class LogIn extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // this.props.toggleModal();
-    const { formType, create, login } = this.props;
+    const {
+      toggleModal,
+      formType,
+      create,
+      login,
+    } = this.props;
     const formSubmitMapping = {
       signup: create,
       signin: login,
@@ -29,9 +33,13 @@ class LogIn extends React.Component {
     if (!this.state.username) {
       return this.setState(
         { username: this.state.email.split('@')[0] },
-        () => formSubmitMapping[formType](this.state),
+        () => {
+          toggleModal();
+          return formSubmitMapping[formType](this.state);
+        },
       );
     }
+    toggleModal();
     return formSubmitMapping[formType](this.state);
   }
 
@@ -83,6 +91,7 @@ LogIn.propTypes = {
   create: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   formType: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default LogIn;
