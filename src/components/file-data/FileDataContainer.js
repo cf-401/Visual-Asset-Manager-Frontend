@@ -75,7 +75,7 @@ FileDataContainer.propTypes = {
   fileDataDelete: PropTypes.func.isRequired,
   fileDateUpdate: PropTypes.func.isRequired,
   makeNewLabel: PropTypes.func.isRequired,
-  allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  allLabels: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   auth: PropTypes.shape(authState.type),
   updateCurrentFilters: PropTypes.func.isRequired,
   labelInitialize: PropTypes.func.isRequired,

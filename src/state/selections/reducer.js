@@ -2,14 +2,13 @@
 import { without } from 'lodash';
 
 const initalState = {
-  allLabels: [{ name: 'illustration' }, { name: 'molecular' }],
+  allLabels: [],
   currentLabels: [],
 };
 
 export default (state = initalState, { type, payload }) => {
   switch (type) {
     case 'INIT_LABELS':
-      console.log('inital labels', payload);
       return Object.assign({}, {
         allLabels: payload || [],
         currentLabels: state.currentLabels,

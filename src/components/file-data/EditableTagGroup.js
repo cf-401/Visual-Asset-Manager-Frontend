@@ -98,7 +98,6 @@ class EditableTagGroup extends React.Component {
       tags, inputVisible, inputValue,
     } = this.state;
     const { allLabels } = this.props;
-    console.log(allLabels);
     const InputElement = (<Input
       ref={this.saveInputRef}
       type="text"

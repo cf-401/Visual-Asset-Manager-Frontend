@@ -16,7 +16,7 @@ export const getFilteredData = (state) => {
     }
 
     selections.currentLabels.forEach((label) => {
-      if (item.labels[label]) {
+      if (item.labels[label.name]) {
         predicate = true;
       }
     });

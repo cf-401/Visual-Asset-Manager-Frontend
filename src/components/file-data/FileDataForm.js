@@ -165,7 +165,7 @@ FileDataForm.propTypes = {
   submitHandler: PropTypes.func.isRequired,
   type: PropTypes.string,
   user: PropTypes.shape(User),
-  allLabels: PropTypes.arrayOf(PropTypes.string),
+  allLabels: PropTypes.arrayOf(PropTypes.shape({})),
   makeNewLabel: PropTypes.func.isRequired,
 };
 
