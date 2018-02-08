@@ -27,6 +27,7 @@ class FileDataContainer extends React.Component {
       fileDateUpdate,
       fileDataCreate,
       updateCurrentFilters,
+      allFilters,
     } = this.props;
 
     return (
@@ -34,7 +35,7 @@ class FileDataContainer extends React.Component {
         <AuthCheck>
           <FileDataForm submitHandler={fileDataCreate} type="creator" user={auth.user} />
         </AuthCheck>
-        <FilterSelector updateCurrentFilters={updateCurrentFilters} />
+        <FilterSelector updateCurrentFilters={updateCurrentFilters} allFilters={allFilters} />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}

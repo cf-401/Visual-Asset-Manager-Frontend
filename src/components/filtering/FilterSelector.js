@@ -29,10 +29,12 @@ class FilterSelector extends React.Component {
 
   render() {
     const { selectedTags } = this.state;
+    const { allFilters } = this.props;
+
     return (
       <div>
         <h6 style={{ marginRight: 8, display: 'inline' }}>Categories:</h6>
-        {tagsFromServer.map(tag => (
+        {allFilters.map(tag => (
           <CheckableTag
             key={tag}
             checked={selectedTags.indexOf(tag) > -1}

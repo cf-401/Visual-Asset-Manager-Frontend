@@ -7,7 +7,6 @@ require('style-loader!css-loader!antd/es/tag/style/index.css');
 const { Meta } = Card;
 
 const labelCheck = (labels) => {
-  console.log(labels);
   if (!labels) {
     return null;
   }
