@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Input, Tooltip, Icon, AutoComplete } from 'antd';
@@ -44,7 +46,6 @@ class EditableTagGroup extends React.Component {
   }
 
   handleInputSelect(value) {
-    console.log('change');
     const { allLabels } = this.props;
     if (includes(allLabels, value)) {
       this.setState({ inputValue: value }, () => {
@@ -54,20 +55,22 @@ class EditableTagGroup extends React.Component {
   }
 
   handleInputChange(value) {
-    console.log('change', value);
     const { allLabels } = this.props;
-    if (includes(allLabels, value)) {
+    if (includes(allLabels.map(label => label.name), value)) {
       return this.setState({ inputValue: value }, () => {
         this.handleInputConfirm();
       });
     }
-    this.setState({ newLabel: value });
+    return this.setState({ newLabel: value });
   }
 
-  handleInputConfirm(value) {
+  handleInputConfirm() {
     let { tags } = this.state;
-    console.log('confirm', value);
     const { inputValue } = this.state;
+    const {
+      makeNewLabel,
+      handleLablesChange,
+    } = this.props;
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
@@ -75,7 +78,16 @@ class EditableTagGroup extends React.Component {
       tags,
       inputVisible: false,
       inputValue: '',
-    }, () => this.props.handleLablesChange(tags));
+    }, () => handleLablesChange(tags));
+
+    const { newLabel } = this.state;
+    if (newLabel) {
+      tags = [...tags, newLabel];
+      this.setState({ tags, newLabel: '' }, () => {
+        handleLablesChange(tags);
+        makeNewLabel({ name: newLabel });
+      });
+    }
   }
 
   saveInputRef(input) {
@@ -99,10 +111,11 @@ class EditableTagGroup extends React.Component {
     />);
     return (
       <div>
-        {tags.map((tag, index) => {
+        {tags.map((tag) => {
           const isLongTag = tag.length > 20;
           const tagElem = (
-            <Tag key={tag} closable="true" afterClose={() => this.handleClose(tag)}>
+            /* eslint-disable-next-line no-underscore-dangle */
+            <Tag key={tag._id} closable="true" afterClose={() => this.handleClose(tag)}>
               {isLongTag ? `${tag.slice(0, 20)}...` : tag}
             </Tag>
           );
@@ -111,7 +124,7 @@ class EditableTagGroup extends React.Component {
         {inputVisible && (
           <AutoComplete
             style={{ width: 100 }}
-            dataSource={allLabels}
+            dataSource={allLabels.map(label => label.name)}
             onSelect={this.handleInputSelect}
             onChange={this.handleInputChange}
             placeholder="Add a tag"
@@ -137,6 +150,7 @@ class EditableTagGroup extends React.Component {
 EditableTagGroup.propTypes = {
   handleLablesChange: PropTypes.func.isRequired,
   allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  makeNewLabel: PropTypes.func.isRequired,
 };
 
 export default EditableTagGroup;

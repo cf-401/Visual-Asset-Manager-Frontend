@@ -2,7 +2,7 @@
 import { without } from 'lodash';
 
 const initalState = {
-  allLabels: ['illustration', 'molecular'],
+  allLabels: [{ name: 'illustration' }, { name: 'molecular' }],
   currentLabels: [],
 };
 

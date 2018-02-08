@@ -115,7 +115,11 @@ class FileDataForm extends React.Component {
   }
 
   render() {
-    const { type, allLabels } = this.props;
+    const {
+      type,
+      allLabels,
+      makeNewLabel,
+    } = this.props;
     return (
       <form onSubmit={this.handleSubmit} className="visual-form">
         {this.renderName()}
@@ -133,7 +137,11 @@ class FileDataForm extends React.Component {
           placeholder="Enter a description"
           onChange={this.handleChange}
         />
-        <EditableTagGroup handleLablesChange={this.handleLablesChange} allLabels={allLabels} />
+        <EditableTagGroup
+          makeNewLabel={makeNewLabel}
+          handleLablesChange={this.handleLablesChange}
+          allLabels={allLabels}
+        />
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
@@ -157,6 +165,7 @@ FileDataForm.propTypes = {
   type: PropTypes.string,
   user: PropTypes.shape(User),
   allLabels: PropTypes.arrayOf(PropTypes.string),
+  makeNewLabel: PropTypes.func.isRequired,
 };
 
 FileDataForm.defaultProps = {

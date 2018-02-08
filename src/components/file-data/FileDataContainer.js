@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import fileDataState from '../../state/file-data';
-import selectionsState from '../../state/selections';
+import selections from '../../state/selections';
 import authState from '../../state/auth';
 
 import AuthCheck from '../log-in/AuthCheck';
@@ -24,6 +24,7 @@ class FileDataContainer extends React.Component {
       fileDateUpdate,
       fileDataCreate,
       allLabels,
+      makeNewLabel,
     } = this.props;
     return (
       <div>
@@ -33,6 +34,7 @@ class FileDataContainer extends React.Component {
             type="creator"
             user={auth.user}
             allLabels={allLabels}
+            makeNewLabel={makeNewLabel}
           />
         </AuthCheck>
         <FileDataDisplay
@@ -48,7 +50,7 @@ class FileDataContainer extends React.Component {
 const mapStateToProps = state => ({
   fileDataArray: state.fileData,
   auth: state.auth,
-  allLabels: selectionsState.selectors.getAllLabels(state),
+  allLabels: selections.selectors.getAllLabels(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -56,6 +58,7 @@ const mapDispatchToProps = dispatch => ({
   fileDataDelete: id => dispatch(fileDataState.actions.remove(id)),
   fileDataInitialize: () => dispatch(fileDataState.actions.init()),
   fileDateUpdate: fileData => dispatch(fileDataState.actions.updateImage(fileData)),
+  makeNewLabel: label => dispatch(selections.actions.create(label)),
 });
 
 FileDataContainer.propTypes = {
@@ -64,6 +67,7 @@ FileDataContainer.propTypes = {
   fileDataCreate: PropTypes.func.isRequired,
   fileDataDelete: PropTypes.func.isRequired,
   fileDateUpdate: PropTypes.func.isRequired,
+  makeNewLabel: PropTypes.func.isRequired,
   allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   auth: PropTypes.shape(authState.type),
 };
