@@ -32,7 +32,6 @@ class EditableTagGroup extends React.Component {
     this.handleInputConfirm = this.handleInputConfirm.bind(this);
   }
 
-
   handleClose(removedTag) {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
     this.setState({ tags }, () => this.props.handleLablesChange(tags));
@@ -99,6 +98,7 @@ class EditableTagGroup extends React.Component {
       tags, inputVisible, inputValue,
     } = this.state;
     const { allLabels } = this.props;
+    console.log(allLabels);
     const InputElement = (<Input
       ref={this.saveInputRef}
       type="text"

@@ -8,7 +8,7 @@ const API = `${__API_URL__}/visual_files`;
 
 const bearerToken = () => cookies.load('auth');
 
-const init = payload => ({
+const initFileData = payload => ({
   type: 'INIT_FILE_DATA',
   payload,
 });
@@ -16,7 +16,7 @@ const init = payload => ({
 export const init = () => (dispatch) => {
   superagent.get(API)
     .set('Authorization', `Bearer ${bearerToken()}`)
-    .then(res => dispatch(init(res.body)))
+    .then(res => dispatch(initFileData(res.body)))
     .catch(console.error);
 };
 

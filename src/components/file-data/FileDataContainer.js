@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import selections from '../../state/selections';
 
 import fileDataState from '../../state/file-data';
 import selections from '../../state/selections';
 import authState from '../../state/auth';
-import { getFilteredData } from '../../state/file-data/selectors';
 
 import FilterSelector from '../filtering/FilterSelector';
 import AuthCheck from '../log-in/AuthCheck';
@@ -39,7 +37,7 @@ class FileDataContainer extends React.Component {
             submitHandler={fileDataCreate}
             type="creator"
             user={auth.user}
-            allLabels={allLabels}
+            allLabels={allFilters}
             makeNewLabel={makeNewLabel}
           />
         </AuthCheck>
@@ -55,7 +53,7 @@ class FileDataContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  fileDataArray: getFilteredData(state),
+  fileDataArray: fileDataState.selectors.getFilteredData(state),
   auth: state.auth,
   allFilters: selections.selectors.getAllLabels(state),
 });

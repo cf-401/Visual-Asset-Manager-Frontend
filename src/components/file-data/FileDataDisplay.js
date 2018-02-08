@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import AssetCard from '../form-components/AssetCard';
-import FileDataForm from './FileDataForm';
 
 import { FileDataType } from '../../state/file-data/type';
 
