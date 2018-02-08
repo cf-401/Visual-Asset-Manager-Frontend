@@ -1,9 +1,23 @@
-'use strict';
-
 const HTMLPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
-const {EnvironmentPlugin,DefinePlugin} = require('webpack');
+const { EnvironmentPlugin, DefinePlugin } = require('webpack');
+
 require('dotenv').config();
+
+const production = process.NODE_ENV;
+
+const plugins = [
+  new HTMLPlugin({
+    template: `${__dirname}/src/index.html`,
+  }),
+  new ExtractPlugin('bundle.[hash].css'),
+  new EnvironmentPlugin(['NODE_ENV']),
+  new DefinePlugin({
+    __AUTH_URL__: JSON.stringify(process.env.AUTH_URL),
+    __API_URL__: JSON.stringify(process.env.API_URL),
+    __DEBUG__: JSON.stringify(!production),
+  }),
+];
 
 module.exports = {
   entry: `${__dirname}/src/main.js`,
@@ -15,16 +29,7 @@ module.exports = {
     filename: 'bundle.[hash].js',
     path: `${__dirname}/build`,
   },
-  plugins: [
-    new HTMLPlugin({
-      template: `${__dirname}/src/index.html`,
-    }),
-    new ExtractPlugin('bundle.[hash].css'),
-    new DefinePlugin({
-      '__AUTH_URL__': JSON.stringify(process.env.AUTH_URL),
-      '__API_URL__': JSON.stringify(process.env.API_URL),
-    }),
-  ],
+  plugins,
   module: {
     rules: [
       {

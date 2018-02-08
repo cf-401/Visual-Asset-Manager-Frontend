@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tag, Input, Tooltip, Icon } from 'antd';
-import Complete from '../form-components/AutoComplete';
 
+/* eslint-disable */
 require('style-loader!css-loader!antd/es/tag/style/index.css');
 require('style-loader!css-loader!antd/es/input/style/index.css');
 require('style-loader!css-loader!antd/es/auto-complete/style/index.css');
+/* eslint-enable */
 
 class EditableTagGroup extends React.Component {
   constructor(props) {
@@ -42,7 +43,8 @@ class EditableTagGroup extends React.Component {
   }
 
   handleInputConfirm() {
-    let { tags, inputValue } = this.state;
+    let { tags } = this.state;
+    const { inputValue } = this.state;
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
@@ -94,5 +96,9 @@ class EditableTagGroup extends React.Component {
     );
   }
 }
+
+EditableTagGroup.propTypes = {
+  handleLablesChange: PropTypes.func.isRequired,
+};
 
 export default EditableTagGroup;
