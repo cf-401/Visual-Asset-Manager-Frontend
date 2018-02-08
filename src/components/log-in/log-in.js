@@ -19,7 +19,7 @@ class LogIn extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
+    // this.props.toggleModal();
     const { formType, create, login } = this.props;
     const formSubmitMapping = {
       signup: create,
