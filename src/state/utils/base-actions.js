@@ -1,8 +1,3 @@
-export const init = payload => ({
-  type: 'INIT',
-  payload,
-});
-
 export const create = payload => ({
   type: 'CREATE',
   payload,

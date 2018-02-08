@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import AssetCard from '../form-components/AssetCard';
-import FileDataForm from './FileDataForm';
 
 import { FileDataType } from '../../state/file-data/type';
 
@@ -15,9 +14,11 @@ class FileDataDisplay extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleDelete(event) {
+  handleDelete(e) {
     const { fileDataDelete } = this.props;
-    fileDataDelete(event.target.id);
+    console.log(e.target.id);
+    e.preventDefault();
+    fileDataDelete(e.target.id);
   }
 
   render() {

@@ -34,7 +34,7 @@ export default (state = defaultState, action) => {
     case 'UPDATE':
       return {
         user: payload,
-      }
+      };
     case 'DELETE_AUTH_TOKEN':
       return defaultState;
 

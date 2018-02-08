@@ -3,8 +3,6 @@ import { Tag } from 'antd';
 
 const { CheckableTag } = Tag;
 
-const tagsFromServer = ['Tag 2', 'Stuff', 'Music', 'Sports'];
-
 class FilterSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +18,6 @@ class FilterSelector extends React.Component {
     const nextSelectedTags = checked ?
       [...selectedTags, tag] :
       selectedTags.filter(t => t !== tag);
-    console.log('Filter images by: ', nextSelectedTags);
     this.setState(
       { selectedTags: nextSelectedTags },
       () => updateCurrentFilters(nextSelectedTags),
@@ -36,11 +33,11 @@ class FilterSelector extends React.Component {
         <h6 style={{ marginRight: 8, display: 'inline' }}>Categories:</h6>
         {allFilters.map(tag => (
           <CheckableTag
-            key={tag}
+            key={tag.name}
             checked={selectedTags.indexOf(tag) > -1}
             onChange={checked => this.handleChange(tag, checked)}
           >
-            {tag}
+            {tag.name}
           </CheckableTag>
         ))}
       </div>

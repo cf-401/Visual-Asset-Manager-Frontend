@@ -1,8 +1,10 @@
 import React from 'react';
 import { Card, Icon, Tag } from 'antd';
-
+import PropTypes from 'prop-types';
+/* eslint-disable*/
 require('style-loader!css-loader!antd/es/card/style/index.css');
 require('style-loader!css-loader!antd/es/tag/style/index.css');
+/* eslint-enable */
 
 const { Meta } = Card;
 
@@ -13,7 +15,7 @@ const labelCheck = (labels) => {
   if (Object.keys(labels).length === 0) {
     return null;
   }
-  return Object.keys(labels).map(label => (<Tag color="#150">{label}</Tag>));
+  return Object.keys(labels).map(label => (<Tag key={label}>{label}</Tag>));
 };
 
 const AssetCard = (props) => {
@@ -31,6 +33,10 @@ const AssetCard = (props) => {
       />
     </Card>
   );
+};
+
+AssetCard.propTypes = {
+  item: PropTypes.shape({}).isRequired,
 };
 
 export default AssetCard;
