@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { renderIf } from '../../lib/helper-functions/render-if';
 
 import LogIn from './log-in';
-
+import FileData from '../file-data/FileDataContainer';
 import * as actions from '../../state/auth/actions';
 import AuthType from '../../state/auth/type';
 
@@ -49,6 +49,7 @@ class LogInContainer extends React.Component {
       <div>
         <p>{auth.user.username}</p>
         <button onClick={this.logOut}>Log Out</button>
+
       </div>
     );
   }
