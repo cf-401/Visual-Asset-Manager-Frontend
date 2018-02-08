@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class UserUpdate extends React.Component {
   constructor(props) {
@@ -10,14 +11,8 @@ class UserUpdate extends React.Component {
     this.onChangeOfAboutMe = this.onChangeOfAboutMe.bind(this);
     this.onChangeOfPassword = this.onChangeOfPassword.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
-    this.state = {
-      username: this.props.auth.user.username,
-      email: this.props.auth.user.email,
-      group: this.props.auth.user.group,
-      aboutMe: this.props.auth.user.aboutMe,
-      password: this.props.auth.user.password,
-    };
+    const { user } = this.props;
+    this.state = { ...user };
   }
 
   onChangeOfEmail(event) {
@@ -124,5 +119,9 @@ class UserUpdate extends React.Component {
     );
   }
 }
+
+UserUpdate.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+};
 
 export default UserUpdate;

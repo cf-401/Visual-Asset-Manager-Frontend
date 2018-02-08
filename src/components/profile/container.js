@@ -43,7 +43,7 @@ class Profile extends React.Component {
               onComplete={this.onComplete}
               editToggle={this.editToggle}
               delete={this.props.userDelete}
-              auth={this.props.auth}
+              user={this.props.auth.user}
             />
           </React.Fragment>
         </div>
