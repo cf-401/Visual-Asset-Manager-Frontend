@@ -13,10 +13,23 @@ import FileDataDisplay from './FileDataDisplay';
 import Modal from '../form-components/Modal';
 
 class FileDataContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: this.props.auth,
+    };
+  }
   componentWillMount() {
-    const { fileDataInitialize, labelInitialize } = this.props;
-    fileDataInitialize();
+    const { labelInitialize } = this.props;
     labelInitialize();
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { fileDataInitialize } = this.props;
+    if (this.state.auth && this.state.auth.init && newProps.auth.user) {
+      fileDataInitialize();
+      this.setState({ auth: newProps.auth.user });
+    }
   }
 
   render() {
