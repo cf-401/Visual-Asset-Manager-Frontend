@@ -5,8 +5,6 @@ import LogInContainer from '../log-in/log-in-container';
 
 import { renderIf } from '../../lib/helper-functions/render-if';
 
-import './signin-modal.scss';
-
 class SignInModal extends React.Component {
   constructor(props) {
     super(props);

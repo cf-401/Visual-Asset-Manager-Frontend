@@ -8,7 +8,7 @@ import { renderIf } from '../../lib/helper-functions/render-if';
 import WrappedLoginForm from './log-in';
 import * as actions from '../../state/auth/actions';
 import AuthType from '../../state/auth/type';
-import FileDataContainer from '../file-data/FileDataContainer';
+
 import { Form, Button, Checkbox } from 'antd';
 
 const { FormItem } = Form.Item;
@@ -92,7 +92,7 @@ class LogInContainer extends React.Component {
         )}
 
         {this.renderUserInfo()}
-        <FileDataContainer />
+
       </React.Fragment>
     );
   }

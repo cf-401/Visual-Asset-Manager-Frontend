@@ -5,7 +5,10 @@ import LogIn from '../log-in/log-in';
 import { renderIf } from '../../lib/helper-functions/render-if';
 import SignInModal from '../signin-modal/signin-modal-container';
 
-import './header.scss';
+import * as actions from '../../state/auth/actions';
+import cookie from 'react-cookies';
+import { Link } from 'react-router-dom';
+
 
 class Header extends React.Component {
   constructor(props) {
@@ -15,6 +18,7 @@ class Header extends React.Component {
     };
     this.renderUserName = this.renderUserName.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   toggleModal() {
@@ -26,6 +30,12 @@ class Header extends React.Component {
     }
   }
 
+  logOut() {
+    cookie.remove('auth');
+    this.props.handleLogout();
+  }
+
+
   renderUserName() {
     const { auth } = this.props;
     if (!auth.user) {
@@ -33,7 +43,15 @@ class Header extends React.Component {
     }
     return (
       <React.Fragment>
-        <li>{auth.user.username}</li>
+        <ul>
+          <li>{auth.user.username}
+            <ul>
+              <li><Link to="/profile">Profile</Link></li>
+              <li><Link to="/">Home</Link></li>
+              <li onClick={this.logOut}><Link to="/">Log Out</Link></li>
+            </ul>
+          </li>
+        </ul>
       </React.Fragment>
     );
   }
@@ -53,12 +71,7 @@ class Header extends React.Component {
               </ul>
             </li>,
           )}
-          <li>
-            {this.renderUserName()}
-            <ul>
-              <li onClick={this.toggleModal}>Log Out</li>
-            </ul>
-          </li>
+          {this.renderUserName()}
         </ul>
 
         {renderIf(
@@ -73,5 +86,7 @@ class Header extends React.Component {
 const mapStateToProps = state => ({
   auth: state.auth,
 });
-const mapDispatchToProps = dispatch => ({ });
+const mapDispatchToProps = dispatch => ({
+  handleLogout: () => dispatch(actions.authLogout()),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

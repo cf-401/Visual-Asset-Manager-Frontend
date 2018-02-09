@@ -1,11 +1,10 @@
 h1 {
   text-align: center;
-
 }
 
 .header {
-  background-color: blue;
-}
+  border: 2px black solid;
+  width: 100%;
 
 ul {
   display: flex;
@@ -24,7 +23,7 @@ ul {
       position: absolute;
       background: white;
       // color: black;
-      left: -2em;
+      left: 2em;
       width: 100%;
 
       li {
@@ -41,4 +40,5 @@ ul {
       display: flex;
     }
   }
+}
 }
