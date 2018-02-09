@@ -1,5 +1,5 @@
 import React from 'react';
-import AssetCard from '../form-components/AssetCard';
+import FileDataDisplay from '../file-data/FileDataDisplay';
 
 class FileList extends React.Component {
   constructor(props) {
@@ -18,15 +18,12 @@ class FileList extends React.Component {
   }
 
   render() {
+    if (!this.state.filteredFiles) {
+      return null
+    }
     return (
-      <div>
-        <ul>
-          {
-            this.state.filteredFiles && this.state.filteredFiles.map(file => (
-              <AssetCard item={file} type="updater" />
-            ))
-          }
-        </ul>
+      <div className="mappedItems">
+        <FileDataDisplay toDisplay={this.state.filteredFiles} />
       </div>
     );
   }
