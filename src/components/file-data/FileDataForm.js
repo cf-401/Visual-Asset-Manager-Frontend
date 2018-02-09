@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Input } from 'antd';
+import { Form, Button, Input, Upload, Icon } from 'antd';
 
 import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
@@ -54,8 +54,11 @@ class FileDataForm extends React.Component {
   }
 
   handleImage(e) {
-    const { files } = e.target;
-    const visualAsset = files[0];
+    // console.log(e.target.files);
+    // const { files } = e.target;
+    // const visualAsset = files[0];
+    const visualAsset = e;
+    console.log(e);
     this.setState({ visualAsset, filename: visualAsset.name });
     photoToDataUrl(visualAsset)
       .then((preview) => {
@@ -119,16 +122,16 @@ class FileDataForm extends React.Component {
       makeNewLabel,
     } = this.props;
     return (
-      <form onSubmit={this.handleSubmit} className="visual-form">
+      <Form onSubmit={this.handleSubmit} className="visual-form">
         {this.renderName()}
-        <input
-          name="filename"
+        <Input
+          Input="filename"
           type="text"
           value={this.state.filename}
           placeholder="File name"
           onChange={this.handleChange}
         />
-        <input
+        <Input
           name="description"
           type="text"
           value={this.state.description}
@@ -144,6 +147,16 @@ class FileDataForm extends React.Component {
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
+          <Upload
+            beforeUpload={this.handleImage}
+            name="path"
+            type="file"
+            onChange={this.onUploaderChange}
+          >
+            <Button>
+              <Icon type="upload" /> Click to Upload
+            </Button>
+          </Upload>
           <Input
             name="path"
             type="file"
@@ -152,7 +165,7 @@ class FileDataForm extends React.Component {
         </label>
 
         <Button type="primary" htmlType="submit">{buttonMap[type]}</Button>
-      </form>
+      </Form>
     );
   }
 }

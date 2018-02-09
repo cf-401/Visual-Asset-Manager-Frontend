@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { FormCreateOption } from 'antd/lib/form/Form';
+import { Form, Icon, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
 console.log(Form.Item);
