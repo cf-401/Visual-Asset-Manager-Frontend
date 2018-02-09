@@ -17,17 +17,8 @@ class FileList extends React.Component {
       <div>
         <ul>
           {
-<<<<<<< HEAD
-            this.state.filteredFiles && this.state.filteredFiles.map( (file,i) => (
-              <li key={file._id}>
-                <h3> {file.description} </h3>
-                <img src={file.path}/>
-              </li>
-=======
             this.state.filteredFiles && this.state.filteredFiles.map(file => (
               <AssetCard item={file} type="updater" />
-
->>>>>>> cbd43afa72b23a249143baf4f89a833a5f0c2f20
             ))
           }
         </ul>
