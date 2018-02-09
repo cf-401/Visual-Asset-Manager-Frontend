@@ -43,9 +43,9 @@ class Header extends React.Component {
     }
     return (
       <React.Fragment>
-        <ul>
+        <ul className="navList">
           <li>{auth.user.username}
-            <ul>
+            <ul className="navList">
               <li><Link to="/profile">Profile</Link></li>
               <li><Link to="/">Home</Link></li>
               <li onClick={this.logOut}><Link to="/">Log Out</Link></li>
@@ -61,7 +61,7 @@ class Header extends React.Component {
     return (
       <div className="header">
         <h1>VAM</h1>
-        <ul>
+        <ul className="navList">
           {renderIf(
           !this.props.auth.user,
             <li>

@@ -1,10 +1,18 @@
+
 h1 {
   text-align: center;
 }
 
+
 .header {
   border: 2px black solid;
   width: 100%;
+
+  .navList {
+    text-align: right;
+    // position: absolute;
+    padding-right: 2em;
+
 
 ul {
   display: flex;
@@ -40,5 +48,6 @@ ul {
       display: flex;
     }
   }
+}
 }
 }
