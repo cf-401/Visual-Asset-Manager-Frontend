@@ -45,7 +45,6 @@ class Header extends React.Component {
         <h1>VAM</h1>
         <ul>
           {renderIf(
-
           !this.props.auth.user,
             <li>
             Guest
@@ -53,10 +52,15 @@ class Header extends React.Component {
                 <li onClick={this.toggleModal}>Log In</li>
               </ul>
             </li>,
-
           )}
-          {this.renderUserName()}
+          <li>
+            {this.renderUserName()}
+            <ul>
+              <li onClick={this.toggleModal}>Log Out</li>
+            </ul>
+          </li>
         </ul>
+
         {renderIf(
           this.state.showModal,
           <SignInModal toggleModal={this.toggleModal} />,
