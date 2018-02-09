@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Input } from 'antd';
 
 import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
-
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/style/index.css');
 /* eslint-enable */
@@ -144,14 +144,14 @@ class FileDataForm extends React.Component {
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
-          <input
+          <Input
             name="path"
             type="file"
             onChange={this.handleImage}
           />
         </label>
 
-        <button type="submit">{buttonMap[type]}</button>
+        <Button type="primary" htmlType="submit">{buttonMap[type]}</Button>
       </form>
     );
   }

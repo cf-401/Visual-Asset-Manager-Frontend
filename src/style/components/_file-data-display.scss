@@ -8,16 +8,19 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-
+  align-items: flex-start;
   -webkit-flex-flow: row wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+
 
   li {
     @include box-3d;
     padding: 5px;
-    margin-top: 10px;
     font-weight: bold;
     background-color: white;
+    margin: auto;
   }
 
 }

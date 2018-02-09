@@ -8,7 +8,12 @@ class FileList extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    const filteredFiles = props.fileData.filter(file => file.userId._id === props.user._id);
+    const filteredFiles = props.fileData.filter((file) => {
+      if (!file.userId) {
+        return false;
+      }
+      return file.userId._id === props.user._id;
+    });
     this.setState({ filteredFiles });
   }
 
