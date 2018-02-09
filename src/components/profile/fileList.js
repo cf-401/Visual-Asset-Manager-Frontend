@@ -22,6 +22,7 @@ class FileList extends React.Component {
           {
             this.state.filteredFiles && this.state.filteredFiles.map( (file,i) => (
               <li key={file._id}>
+                <h3> {file.description} </h3>
                 <img src={file.path}/>
               </li>
             ))

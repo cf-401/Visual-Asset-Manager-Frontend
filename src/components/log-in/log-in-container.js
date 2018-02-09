@@ -47,6 +47,7 @@ class LogInContainer extends React.Component {
     }
     return (
       <div>
+        <FileData />
         <p>{auth.user.username}</p>
         <button onClick={this.logOut}>Log Out</button>
 
