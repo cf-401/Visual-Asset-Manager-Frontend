@@ -21,10 +21,13 @@ export const init = () => (dispatch) => {
 };
 
 export const create = payload => (dispatch) => {
+  console.log('payload');
   superagent.post(API)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .send(payload)
-    .then(res => dispatch(actions.create(res.body)))
+    .then(res =>
+      { console.log('res', res);
+        dispatch(actions.create(res.body))})
     .catch(console.error);
 };
 
@@ -75,11 +78,13 @@ export const updateImage = data => (dispatch) => {
 export const uploadImage = data => (dispatch) => {
   const token = cookies.load('auth');
 
-  const URL = `${__API_URL__}/upload`;
+
+  const URL = `${API}`;
   superagent.post(URL)
     .set('Authorization', `Bearer ${token}`)
     .attach('newImage', data.visualAsset)
     .then((res) => {
+      console.log('hi', res);
       const toPost = Object.assign({}, data, { path: res.body.url });
       toPost.visualAsset = null;
       delete toPost.visualAsset;
