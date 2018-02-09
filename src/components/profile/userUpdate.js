@@ -1,10 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class UserUpdate extends React.Component {
   constructor(props) {
     super(props);
-
-
 
     this.onChangeOfEmail = this.onChangeOfEmail.bind(this);
     this.onChangeOfUsername = this.onChangeOfUsername.bind(this);
@@ -12,14 +11,8 @@ class UserUpdate extends React.Component {
     this.onChangeOfAboutMe = this.onChangeOfAboutMe.bind(this);
     this.onChangeOfPassword = this.onChangeOfPassword.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
-    this.state = {
-      username: this.props.auth.user.username,
-      email: this.props.auth.user.email,
-      group: this.props.auth.user.group,
-      aboutMe: this.props.auth.user.aboutMe,
-      password: this.props.auth.user.password,
-    };
+    const { user } = this.props;
+    this.state = { ...user };
   }
 
   onChangeOfEmail(event) {
@@ -48,7 +41,7 @@ class UserUpdate extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.onComplete(Object.assign({},this.state));
+    this.props.onComplete(Object.assign({}, this.state));
   }
 
   render() {
@@ -79,9 +72,9 @@ class UserUpdate extends React.Component {
           </div>
           <br />
           <div className="emailForm">
-          <label id="email">
+            <label id="email">
           change your email
-          </label>
+            </label>
             <input
               htmlFor="email"
               value={this.state.email}
@@ -100,9 +93,9 @@ class UserUpdate extends React.Component {
             />
           </div>
           <div className="aboutMeForm">
-          <label id="about">
+            <label id="about">
           change your about me
-          </label>
+            </label>
             <textarea
               rows="10"
               htmlFor="about"
@@ -126,5 +119,9 @@ class UserUpdate extends React.Component {
     );
   }
 }
+
+UserUpdate.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+};
 
 export default UserUpdate;

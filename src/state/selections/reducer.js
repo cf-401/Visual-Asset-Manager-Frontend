@@ -10,7 +10,7 @@ export default (state = initalState, { type, payload }) => {
   switch (type) {
     case 'INIT_LABELS':
       return Object.assign({}, {
-        allLabels: payload,
+        allLabels: payload || [],
         currentLabels: state.currentLabels,
       });
     case 'CREATE_LABEL':
