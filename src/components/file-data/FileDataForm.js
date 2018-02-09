@@ -6,12 +6,9 @@ import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
 
-
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/style/index.css');
 /* eslint-enable */
-
-
 
 const FileDataDefault = {
   filename: '',
@@ -40,7 +37,6 @@ class FileDataForm extends React.Component {
     this.renderName = this.renderName.bind(this);
     this.handleLablesChange = this.handleLablesChange.bind(this);
   }
-
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -117,8 +113,11 @@ class FileDataForm extends React.Component {
   }
 
   render() {
-    const { type } = this.props;
-
+    const {
+      type,
+      allLabels,
+      makeNewLabel,
+    } = this.props;
     return (
       <form onSubmit={this.handleSubmit} className="visual-form">
         {this.renderName()}
@@ -135,8 +134,13 @@ class FileDataForm extends React.Component {
           value={this.state.description}
           placeholder="Enter a description"
           onChange={this.handleChange}
+          required
         />
-        <EditableTagGroup handleLablesChange={this.handleLablesChange} />
+        <EditableTagGroup
+          makeNewLabel={makeNewLabel}
+          handleLablesChange={this.handleLablesChange}
+          allLabels={allLabels}
+        />
         <label htmlFor="path">
           {this.renderImage()}
           {this.renderPreview()}
@@ -159,12 +163,15 @@ FileDataForm.propTypes = {
   submitHandler: PropTypes.func.isRequired,
   type: PropTypes.string,
   user: PropTypes.shape(User),
+  allLabels: PropTypes.arrayOf(PropTypes.shape({})),
+  makeNewLabel: PropTypes.func.isRequired,
 };
 
 FileDataForm.defaultProps = {
   fileData: FileDataDefault,
   type: 'creator',
   user: {},
+  allLabels: [],
 };
 
 export default FileDataForm;

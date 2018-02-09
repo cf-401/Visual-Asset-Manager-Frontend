@@ -3,9 +3,7 @@
 import superagent from 'superagent';
 import cookie from 'react-cookies';
 
-const bearerToken = () => {
-  return cookie.load('auth');
-};
+const bearerToken = () => cookie.load('auth');
 
 const setUser = auth => ({
   type: 'SET_AUTH_USER',
@@ -14,6 +12,15 @@ const setUser = auth => ({
 
 const updateAction = auth => ({
   type: 'UPDATE',
+  payload: auth,
+});
+
+export const authLogout = () => ({
+  type: 'DELETE_AUTH_TOKEN',
+});
+
+const deleteAction = auth => ({
+  type: 'DELETE',
   payload: auth,
 });
 
@@ -50,11 +57,10 @@ export const authCreateAccount = user => dispatch => superagent.post(`${__AUTH_U
   .catch(e => console.error('Authenticaton Error:', e.message));
 
 export const userUpdate = payload => (dispatch) => {
-
-  let URL = `${__AUTH_URL__}/update`;
+  const URL = `${__AUTH_URL__}/update`;
 
   superagent.put(URL)
-    .set('Authorization', 'Bearer ' + bearerToken())
+    .set('Authorization', `Bearer ${bearerToken()}`)
     .send(payload)
     .then(res => dispatch(updateAction(res.body)))
     .catch(console.error);
@@ -62,22 +68,13 @@ export const userUpdate = payload => (dispatch) => {
 
 
 export const userDelete = payload => (dispatch) => {
-  let URL = `${__AUTH_URL__}`;
+  const URL = `${__AUTH_URL__}`;
 
   superagent.delete(URL)
-    .set('Authorization', 'Bearer ' + bearerToken())
-    .then(res => {
-      console.log('!!!!', payload)
+    .set('Authorization', `Bearer ${bearerToken()}`)
+    .then(() => {
+      console.log('!!!!', payload);
       dispatch(deleteAction(payload));
     })
     .catch(console.error);
 };
-
-export const authLogout = () => ({
-  type: 'DELETE_AUTH_TOKEN',
-});
-
-const deleteAction = auth => ({
-  type: 'DELETE',
-  payload: auth,
-});

@@ -1,12 +1,12 @@
-import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
+
 import FileList from './fileList';
-import FileData from '../file-data/FileDataContainer';
 
 import * as actions from '../../state/auth/actions';
 import * as fileActions from '../../state/file-data/actions';
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -23,13 +23,13 @@ class Profile extends React.Component {
     this.props.fileDataInitialize();
   }
 
+  onComplete(newState) {
+    this.props.userUpdate(newState);
+  }
+
   editToggle(event) {
     event.preventDefault();
     this.setState({ isEditing: !this.state.isEditing });
-  }
-
-  onComplete(newState) {
-    this.props.userUpdate(newState);
   }
 
   render() {
@@ -46,12 +46,12 @@ class Profile extends React.Component {
               onComplete={this.onComplete}
               editToggle={this.editToggle}
               delete={this.props.userDelete}
-              auth={this.props.auth}
+              user={this.props.auth.user}
             />
           </React.Fragment>
           <FileList
             fileData={this.props.fileData}
-            auth={this.props.auth}
+            user={this.props.auth.user}
           />
         </div>
       </div>
@@ -64,7 +64,7 @@ const mapStateToProps = state => ({
   fileData: state.fileData,
 });
 
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = dispatch => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
   userLogin: user => dispatch(actions.authLogin(user)),

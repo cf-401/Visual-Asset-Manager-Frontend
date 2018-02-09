@@ -2,7 +2,7 @@
 
 export default (state = [], { type, payload }) => {
   switch (type) {
-    case 'INIT':
+    case 'INIT_FILE_DATA':
       return payload || [];
     case 'CREATE':
       return [...state, payload];

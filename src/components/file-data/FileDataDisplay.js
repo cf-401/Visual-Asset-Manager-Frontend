@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-import FileDataForm from './FileDataForm';
+import AssetCard from '../form-components/AssetCard';
 
 import { FileDataType } from '../../state/file-data/type';
 
@@ -14,9 +14,11 @@ class FileDataDisplay extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleDelete(event) {
+  handleDelete(e) {
     const { fileDataDelete } = this.props;
-    fileDataDelete(event.target.id);
+    console.log(e.target.id);
+    e.preventDefault();
+    fileDataDelete(e.target.id);
   }
 
   render() {
@@ -36,7 +38,7 @@ class FileDataDisplay extends React.Component {
               />
               <h4>{item.name}
               </h4>
-              <FileDataForm fileData={item} submitHandler={fileDateUpdate} type="updater" />
+              <AssetCard item={item} submitHandler={fileDateUpdate} type="updater" />
             </li>))}
       </ul>
     );
