@@ -30,7 +30,6 @@ class FileDataContainer extends React.Component {
       allFilters,
     } = this.props;
 
-    console.log('rendering');
     return (
       <div>
         <AuthCheck>
