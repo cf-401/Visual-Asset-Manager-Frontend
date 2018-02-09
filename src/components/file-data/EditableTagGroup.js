@@ -49,7 +49,7 @@ class EditableTagGroup extends React.Component {
   handleInputSelect(value) {
     const { allLabels } = this.props;
     if (includes(allLabels, value)) {
-      this.setState({ inputValue: value }, () => {
+      this.setState({ inputValue: value, newLabel: '' }, () => {
         this.handleInputConfirm();
       });
     }
@@ -58,7 +58,7 @@ class EditableTagGroup extends React.Component {
   handleInputChange(value) {
     const { allLabels } = this.props;
     if (includes(allLabels.map(label => label.name), value)) {
-      return this.setState({ inputValue: value }, () => {
+      return this.setState({ inputValue: value, newLabel: '' }, () => {
         this.handleInputConfirm();
       });
     }
@@ -67,7 +67,7 @@ class EditableTagGroup extends React.Component {
 
   handleInputConfirm() {
     let { tags } = this.state;
-    const { inputValue } = this.state;
+    const { inputValue, newLabel } = this.state;
     const {
       makeNewLabel,
       handleLablesChange,
@@ -82,7 +82,6 @@ class EditableTagGroup extends React.Component {
       inputValue: '',
     }, () => handleLablesChange(tags));
 
-    const { newLabel } = this.state;
     if (newLabel) {
       tags = [...tags, newLabel];
       this.setState({ tags, newLabel: '' }, () => {

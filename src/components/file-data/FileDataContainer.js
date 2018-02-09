@@ -10,6 +10,7 @@ import FilterSelector from '../filtering/FilterSelector';
 import AuthCheck from '../log-in/AuthCheck';
 import FileDataForm from './FileDataForm';
 import FileDataDisplay from './FileDataDisplay';
+import Modal from '../form-components/Modal';
 
 class FileDataContainer extends React.Component {
   componentWillMount() {
@@ -33,13 +34,15 @@ class FileDataContainer extends React.Component {
     return (
       <div>
         <AuthCheck>
-          <FileDataForm
-            submitHandler={fileDataCreate}
-            type="creator"
-            user={auth.user}
-            allLabels={allFilters}
-            makeNewLabel={makeNewLabel}
-          />
+          <Modal submitHandler={fileDataCreate}>
+            <FileDataForm
+              submitHandler={fileDataCreate}
+              type="creator"
+              user={auth.user}
+              allLabels={allFilters}
+              makeNewLabel={makeNewLabel}
+            />
+          </Modal >
         </AuthCheck>
         <FilterSelector updateCurrentFilters={updateCurrentFilters} allFilters={allFilters} />
         <FileDataDisplay

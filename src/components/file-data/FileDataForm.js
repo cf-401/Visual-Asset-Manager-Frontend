@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Input, Upload, Icon } from 'antd';
-
+import { noop } from 'lodash';
 import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
@@ -36,6 +36,7 @@ class FileDataForm extends React.Component {
     this.renderPreview = this.renderPreview.bind(this);
     this.renderName = this.renderName.bind(this);
     this.handleLablesChange = this.handleLablesChange.bind(this);
+    this.renderRestofForm = this.renderRestofForm.bind(this);
   }
 
   handleChange(e) {
@@ -53,16 +54,13 @@ class FileDataForm extends React.Component {
     }
   }
 
-  handleImage(e) {
-    // console.log(e.target.files);
-    // const { files } = e.target;
-    // const visualAsset = files[0];
-    const visualAsset = e;
-    console.log(e);
+  handleImage(file) {
+    const visualAsset = file;
     this.setState({ visualAsset, filename: visualAsset.name });
-    photoToDataUrl(visualAsset)
+    return photoToDataUrl(visualAsset)
       .then((preview) => {
         this.setState({ preview });
+        return false;
       })
       .catch(console.error);
   }
@@ -89,82 +87,77 @@ class FileDataForm extends React.Component {
       </figure>) : null;
   }
 
-  renderName() {
-    const { type, user } = this.props;
-
-    if (type === 'creator') {
+  renderRestofForm() {
+    const {
+      allLabels,
+      makeNewLabel,
+      type,
+    } = this.props;
+    if (this.state.preview) {
       return (
-        <input
-          name="user_name"
-          type="text"
-          readOnly
-          value={user.username}
-        />
-      );
-    }
-    if (this.state.userId) {
-      return (
-        <input
-          name="user_name"
-          type="text"
-          readOnly
-          value={this.state.userId.username}
-        />
+        <div>
+          <Input
+            name="filename"
+            type="text"
+            value={this.state.filename}
+            placeholder="File name"
+            onChange={this.handleChange}
+          />
+          <Input
+            name="description"
+            type="text"
+            value={this.state.description}
+            placeholder="Enter a description"
+            onChange={this.handleChange}
+            required
+          />
+          <EditableTagGroup
+            makeNewLabel={makeNewLabel}
+            handleLablesChange={this.handleLablesChange}
+            allLabels={allLabels}
+          />
+          <Button type="primary" htmlType="submit">{buttonMap[type]}</Button>
+        </div>
       );
     }
     return null;
   }
 
+  renderName() {
+    const { type, user } = this.props;
+    let name = '';
+    if (type === 'creator') {
+      name = user.username;
+    } else if (this.state.userId) {
+      name = this.state.userId.username;
+    }
+    return (
+      <Input
+        name="user_name"
+        type="text"
+        readOnly
+        value={name}
+      />
+    );
+  }
+
   render() {
-    const {
-      type,
-      allLabels,
-      makeNewLabel,
-    } = this.props;
     return (
       <Form onSubmit={this.handleSubmit} className="visual-form">
         {this.renderName()}
-        <Input
-          Input="filename"
-          type="text"
-          value={this.state.filename}
-          placeholder="File name"
-          onChange={this.handleChange}
-        />
-        <Input
-          name="description"
-          type="text"
-          value={this.state.description}
-          placeholder="Enter a description"
-          onChange={this.handleChange}
-          required
-        />
-        <EditableTagGroup
-          makeNewLabel={makeNewLabel}
-          handleLablesChange={this.handleLablesChange}
-          allLabels={allLabels}
-        />
-        <label htmlFor="path">
-          {this.renderImage()}
-          {this.renderPreview()}
-          <Upload
-            beforeUpload={this.handleImage}
-            name="path"
-            type="file"
-            onChange={this.onUploaderChange}
-          >
-            <Button>
-              <Icon type="upload" /> Click to Upload
-            </Button>
-          </Upload>
-          <Input
-            name="path"
-            type="file"
-            onChange={this.handleImage}
-          />
-        </label>
-
-        <Button type="primary" htmlType="submit">{buttonMap[type]}</Button>
+        {this.renderImage()}
+        {this.renderPreview()}
+        <Upload
+          beforeUpload={this.handleImage}
+          name="path"
+          type="file"
+          customRequest={noop}
+        >
+          <Button>
+            <Icon type="upload" /> Click to Upload
+          </Button>
+        </Upload>
+        {this.renderRestofForm()}
       </Form>
     );
   }

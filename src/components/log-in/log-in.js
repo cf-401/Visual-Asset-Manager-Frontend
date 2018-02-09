@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
-console.log(Form.Item);
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
