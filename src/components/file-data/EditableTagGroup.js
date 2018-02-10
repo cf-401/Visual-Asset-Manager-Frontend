@@ -49,7 +49,7 @@ class EditableTagGroup extends React.Component {
   handleInputSelect(value) {
     const { allLabels } = this.props;
     if (includes(allLabels, value)) {
-      this.setState({ inputValue: value }, () => {
+      this.setState({ inputValue: value, newLabel: '' }, () => {
         this.handleInputConfirm();
       });
     }
@@ -58,7 +58,7 @@ class EditableTagGroup extends React.Component {
   handleInputChange(value) {
     const { allLabels } = this.props;
     if (includes(allLabels.map(label => label.name), value)) {
-      return this.setState({ inputValue: value }, () => {
+      return this.setState({ inputValue: value, newLabel: '' }, () => {
         this.handleInputConfirm();
       });
     }
@@ -67,7 +67,7 @@ class EditableTagGroup extends React.Component {
 
   handleInputConfirm() {
     let { tags } = this.state;
-    const { inputValue } = this.state;
+    const { inputValue, newLabel } = this.state;
     const {
       makeNewLabel,
       handleLablesChange,
@@ -82,7 +82,6 @@ class EditableTagGroup extends React.Component {
       inputValue: '',
     }, () => handleLablesChange(tags));
 
-    const { newLabel } = this.state;
     if (newLabel) {
       tags = [...tags, newLabel];
       this.setState({ tags, newLabel: '' }, () => {
@@ -104,7 +103,7 @@ class EditableTagGroup extends React.Component {
     const InputElement = (<Input
       ref={this.saveInputRef}
       type="text"
-      size="small"
+      size="medium"
       style={{ width: 100 }}
       value={inputValue}
       onChange={this.handleInputChange}
@@ -113,11 +112,12 @@ class EditableTagGroup extends React.Component {
     />);
     return (
       <div>
+        <h4>Add labels for image filtering</h4>
         {tags.map((tag) => {
           const isLongTag = tag.length > 20;
           const tagElem = (
             /* eslint-disable-next-line no-underscore-dangle */
-            <Tag key={tag._id} closable="true" afterClose={() => this.handleClose(tag)}>
+            <Tag key={tag._id} closable afterClose={() => this.handleClose(tag)}>
               {isLongTag ? `${tag.slice(0, 20)}...` : tag}
             </Tag>
           );

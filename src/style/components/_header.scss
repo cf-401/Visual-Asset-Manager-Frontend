@@ -1,0 +1,54 @@
+
+h1 {
+  text-align: center;
+}
+
+.header {
+  @include shadow-bottom-fuzzy;
+  width: 100%;
+
+ul {
+  display: flex;
+  flex-direction: row;
+  &:hover{
+    color: $brand-primary;
+  }
+
+  li{
+    list-style: none;
+    cursor: pointer;
+    padding: 1em;
+    position: relative;
+    min-width: 100px;
+
+    ul {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      background: white;
+      left: 2em;
+      width: 100%;
+      @include box-raised;
+      background-color: $brand-primary;
+      color: white;
+      li {
+         padding: .5em;
+         &:hover{
+           background-color: lighten($brand-primary, 10%);
+         }
+         a {
+           color: white;
+         }
+      }
+    }
+  }
+
+  li:hover {
+
+    ul {
+      display: flex;
+    }
+  }
+}
+
+}
