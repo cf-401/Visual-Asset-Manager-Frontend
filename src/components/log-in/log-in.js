@@ -92,7 +92,12 @@ class LogIn extends React.Component {
         <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
-          })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+          })(<Input
+            onChange={this.handleChange}
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="password"
+            placeholder="Password"
+          />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('userName', {
