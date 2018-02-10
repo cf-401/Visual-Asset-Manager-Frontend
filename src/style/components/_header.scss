@@ -32,7 +32,6 @@ ul {
       background-color: $brand-primary;
       color: white;
       li {
-        z-index: 100;
          padding: .5em;
          color: white;
          &:hover{
@@ -53,4 +52,8 @@ ul {
   }
 }
 
+}
+
+.navList {
+  z-index: 2;
 }
