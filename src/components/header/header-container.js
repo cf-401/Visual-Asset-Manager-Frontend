@@ -74,7 +74,7 @@ class Header extends React.Component {
       allFilters,
     } = this.props;
     return (
-      <div className="header">
+      <header>
         <div><Logo width="50" height="50" /></div>
         <ul className="navList">
           {renderIf(
@@ -104,7 +104,7 @@ class Header extends React.Component {
           this.state.showModal,
           <SignInModal toggleModal={this.toggleModal} />,
         )}
-      </div>
+      </header>
     );
   }
 }
