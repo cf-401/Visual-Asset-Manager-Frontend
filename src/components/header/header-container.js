@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LogIn from '../log-in/log-in';
 import { renderIf } from '../../lib/helper-functions/render-if';
 import SignInModal from '../signin-modal/signin-modal-container';
+import Logo from '../header/logo';
 
 import * as actions from '../../state/auth/actions';
 import cookie from 'react-cookies';
@@ -60,7 +61,7 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <h1>VAM</h1>
+        <p><Logo width="50" height="50" /></p>
         <ul className="navList">
           {renderIf(
           !this.props.auth.user,
