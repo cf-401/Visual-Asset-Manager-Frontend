@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import LogIn from '../log-in/log-in';
-import { renderIf } from '../../lib/helper-functions/render-if';
-import SignInModal from '../signin-modal/signin-modal-container';
-import Logo from '../header/logo';
-
-import * as actions from '../../state/auth/actions';
 import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import { renderIf } from '../../lib/helper-functions/render-if';
+import selections from '../../state/selections';
+import fileDataState from '../../state/file-data';
+import * as actions from '../../state/auth/actions';
+import authState from '../../state/auth';
+
+import FileDataForm from '../file-data/FileDataForm';
+import SignInModal from '../signin-modal/signin-modal-container';
+import AuthCheck from '../log-in/AuthCheck';
+import Logo from '../header/logo';
 
 class Header extends React.Component {
   constructor(props) {
@@ -20,6 +24,10 @@ class Header extends React.Component {
     this.renderUserName = this.renderUserName.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.logOut = this.logOut.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.initalLogin();
   }
 
   toggleModal() {
@@ -59,8 +67,14 @@ class Header extends React.Component {
 
 
   render() {
+    const {
+      auth,
+      fileDataCreate,
+      makeNewLabel,
+      allFilters,
+    } = this.props;
     return (
-      <header>
+      <div className="header">
         <div><Logo width="50" height="50" /></div>
         <ul className="navList">
           {renderIf(
@@ -73,21 +87,51 @@ class Header extends React.Component {
             </li>,
           )}
           {this.renderUserName()}
+          <AuthCheck>
+
+            <FileDataForm
+              submitHandler={fileDataCreate}
+              type="creator"
+              user={auth.user}
+              allLabels={allFilters}
+              makeNewLabel={makeNewLabel}
+            />
+          </AuthCheck>
+
         </ul>
 
         {renderIf(
           this.state.showModal,
           <SignInModal toggleModal={this.toggleModal} />,
         )}
-      </header>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  allFilters: selections.selectors.getAllLabels(state),
 });
+
 const mapDispatchToProps = dispatch => ({
+  initalLogin: () => dispatch(actions.checkLogin()),
+  makeNewLabel: label => dispatch(selections.actions.create(label)),
   handleLogout: () => dispatch(actions.authLogout()),
+  fileDataCreate: fileData => dispatch(fileDataState.actions.uploadImage(fileData)),
 });
+
+Header.propTypes = {
+  initalLogin: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
+  fileDataCreate: PropTypes.func.isRequired,
+  makeNewLabel: PropTypes.func.isRequired,
+  allFilters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  auth: PropTypes.shape(authState.type),
+};
+
+Header.defaultProps = {
+  auth: null,
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
