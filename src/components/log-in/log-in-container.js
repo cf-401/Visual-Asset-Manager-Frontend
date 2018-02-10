@@ -40,7 +40,7 @@ class LogInContainer extends React.Component {
 
   logOut() {
     cookie.remove({
-      domain: ' http://*.vam.fun/',
+      domain: 'http://*.vam.fun/',
       name: 'auth',
       path: '/',
     });
