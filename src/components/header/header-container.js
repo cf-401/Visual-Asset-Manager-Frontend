@@ -59,7 +59,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="header">
+      <header>
         <h1>VAM</h1>
         <ul className="navList">
           {renderIf(
@@ -78,7 +78,7 @@ class Header extends React.Component {
           this.state.showModal,
           <SignInModal toggleModal={this.toggleModal} />,
         )}
-      </div>
+      </header>
     );
   }
 }
