@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 import React from 'react';
 import { Card, Icon, Tag } from 'antd';
 import PropTypes from 'prop-types';
@@ -18,24 +20,22 @@ const labelCheck = (labels) => {
   return Object.keys(labels).map(label => (<Tag key={label}>{label}</Tag>));
 };
 
-function renderEdit(item, auth) {
-  console.log('auth', auth);
-  if (auth.user._id !== item.userId._id) {
-    return null;
+function renderEdit(isOwnerOfAsset) {
+  if (isOwnerOfAsset) {
+    return (
+      [<Icon type="edit" />]
+    );
   }
-  return (
-    [<Icon type="edit" />]
-  );
+  return null;
 }
 
 const AssetCard = (props) => {
-  const { item, auth } = props;
-  console.log('item', item);
+  const { item, isOwnerOfAsset } = props;
   return (
     <Card
       style={{ width: 300 }}
       cover={<img alt={item.name} src={item.path} />}
-      actions={renderEdit(item, auth)}
+      actions={renderEdit(isOwnerOfAsset)}
       extra={labelCheck(item.labels)}
     >
       <Meta
@@ -48,6 +48,11 @@ const AssetCard = (props) => {
 
 AssetCard.propTypes = {
   item: PropTypes.shape({}).isRequired,
+  isOwnerOfAsset: Boolean,
+};
+
+AssetCard.defaultProps = {
+  isOwnerOfAsset: false,
 };
 
 export default AssetCard;
