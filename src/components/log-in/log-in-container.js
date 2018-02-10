@@ -8,7 +8,7 @@ import { renderIf } from '../../lib/helper-functions/render-if';
 import WrappedLoginForm from './log-in';
 import * as actions from '../../state/auth/actions';
 import AuthType from '../../state/auth/type';
-import FileDataContainer from '../file-data/FileDataContainer';
+
 import { Form, Button, Checkbox } from 'antd';
 
 const { FormItem } = Form.Item;
@@ -81,6 +81,7 @@ class LogInContainer extends React.Component {
               create={handleCreateAccount}
               login={handleLogin}
               formType={this.state.formType}
+              toggleModal={this.props.toggleModal}
             />
             <span>Or </span>
             <a onClick={this.toggleFormType} name={this.state.notFormType}>{linkMap[this.state.notFormType]}</a>
@@ -91,7 +92,7 @@ class LogInContainer extends React.Component {
         )}
 
         {this.renderUserInfo()}
-        <FileDataContainer />
+
       </React.Fragment>
     );
   }

@@ -1,0 +1,48 @@
+
+h1 {
+  text-align: center;
+}
+
+
+.header {
+  border: 2px black solid;
+  width: 100%;
+
+
+ul {
+  display: flex;
+  flex-direction: row;
+
+  li{
+    list-style: none;
+    cursor: pointer;
+    padding: 1em;
+    position: relative;
+    min-width: 100px;
+
+    ul {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      background: white;
+      // color: black;
+      left: 2em;
+      width: 100%;
+
+      li {
+         padding: .2em;
+      }
+    }
+  }
+
+  li:hover {
+    // background: blue;
+    // color: white;
+
+    ul {
+      display: flex;
+    }
+  }
+}
+
+}
