@@ -59,18 +59,15 @@ class FileDataForm extends React.Component {
   handleImage(file) {
     const visualAsset = file;
     const { fileData } = this.state;
-    this.setState({ fileData: { ...fileData, visualAsset, filename: visualAsset.name } }, () => console.log('after upload', this.state.fileData));
+    this.setState({ fileData: { ...fileData, visualAsset, filename: visualAsset.name } });
     return photoToDataUrl(visualAsset)
       .then((preview) => {
         const newFileData = this.state.fileData;
-        this.setState(
-          {
-            fileData: {
-              ...newFileData, preview,
-            },
+        this.setState({
+          fileData: {
+            ...newFileData, preview,
           },
-          () => console.log('after upload', this.state.fileData),
-        );
+        });
         return false;
       })
       .catch(console.error);
@@ -83,7 +80,7 @@ class FileDataForm extends React.Component {
       acc[cur] = true;
       return acc;
     }, {});
-    this.setState({ fileData: { ...fileData, labels } }, () => console.log(this.state));
+    this.setState({ fileData: { ...fileData, labels } });
   }
 
   renderImage() {

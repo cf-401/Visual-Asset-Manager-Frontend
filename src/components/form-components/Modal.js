@@ -29,7 +29,6 @@ class ModalImageUploader extends React.Component {
 
   handleOk() {
     const { fileData } = this.props;
-    console.log('about to submit', fileData);
     this.setState({
       visible: false,
     }, this.props.submitHandler(fileData));
