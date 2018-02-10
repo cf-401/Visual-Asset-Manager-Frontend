@@ -26,13 +26,14 @@ ul {
       flex-direction: column;
       position: absolute;
       background: white;
-      left: 2em;
+      left: 1em;
       width: 100%;
       @include box-raised;
       background-color: $brand-primary;
       color: white;
       li {
          padding: .5em;
+         color: white;
          &:hover{
            background-color: lighten($brand-primary, 10%);
          }
