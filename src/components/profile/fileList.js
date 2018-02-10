@@ -8,7 +8,8 @@ class FileList extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    const filteredFiles = props.fileData.filter((file) => {
+    const { fileData } = props;
+    const filteredFiles = fileData.filter((file) => {
       if (!file.userId) {
         return false;
       }
@@ -19,11 +20,11 @@ class FileList extends React.Component {
 
   render() {
     if (!this.state.filteredFiles) {
-      return null
+      return null;
     }
     return (
-      <div className="mappedItems">
-        <FileDataDisplay toDisplay={this.state.filteredFiles} />
+      <div className="file-data-container">
+        <FileDataDisplay toDisplay={this.state.filteredFiles} isUser />
       </div>
     );
   }

@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
 
 import FileList from './fileList';
+/* eslint-disable*/
 require('style-loader!css-loader!antd/es/form/style/index.css');
 require('style-loader!css-loader!antd/es/button/style/index.css');
+/* eslint-enable */
+
 import * as actions from '../../state/auth/actions';
 import * as fileActions from '../../state/file-data/actions';
 
@@ -65,7 +68,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
-  userLogin: user => dispatch(actions.authLogin(user)),
+  userLogin: user => dispatch(actions.checkLogin(user)),
   fileDataInitialize: () => dispatch(fileActions.init()),
 });
 

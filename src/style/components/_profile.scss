@@ -1,102 +1,100 @@
 @import '../theme/vars.scss';
-input {
-  border-radius: 4px;
-  border-style: groove;
-}
-
-img {
-  width: 400px;
-  height: 300px;
-  margin-left: 400px;
-}
-
-.usernameForm {
-  margin-top: $topMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-  margin-bottom: 40px;
-  float: left;
-}
-
-.emailForm {
-  margin-top: $topMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-}
-
-
-.welcomeHeader {
-  background-color: #FF3D00;
-  line-height: 90px;
-  vertical-align: text-bottom;
-  text-align: center;
-}
-
-.landingHeaderWords {
-  background-color: #FF3D00;
-  line-height: 90px;
-  vertical-align: text-bottom;
-  text-align: center;
-}
-
 .userInfo {
-  border: 2px solid black;
-  border-radius: 6px;
-  display: inline-flex;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-  text-align: center;
-  height: 666px;
-  width: 264px;
-}
+  display: flex;
+  flex-flow: row wrap;
+  .file-data-container{
+    flex: 2 0px;
+    order: 2;
+  }
+  .userForm {
+    border-right: 0.5px solid $darker-gray;
+    margin-left: $leftMargin;
+    margin-right: $rightMargin;
+    text-align: center;
+    order: 1;
 
-.usernameLanding {
-  margin-top: $topMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-  text-align: center;
-}
+    label{
+      display: block;
+    }
 
-.emailLanding {
-  margin-top: $topMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-  text-align: center;
-}
+    .usernameForm {
+      margin-top: $topMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+      margin-bottom: 40px;
+    }
+
+    .emailForm {
+      margin-top: $topMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+    }
 
 
-.content {
-  border: 2px solid black;
-  height: 666px;
-  width:1100px;
-  float:right;
-  display: inline-block;
-  margin-top: 0px;
-}
+    .welcomeHeader {
+      background-color: #FF3D00;
+      line-height: 90px;
+      vertical-align: text-bottom;
+      text-align: center;
+    }
 
-.groupForm {
-  margin-top: $topMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-  margin-bottom: 20px;
-}
+    .landingHeaderWords {
+      background-color: #FF3D00;
+      line-height: 90px;
+      vertical-align: text-bottom;
+      text-align: center;
+    }
 
-.aboutMeInput {
-  width: 200px;
-}
 
-.aboutMeForm {
-  margin-top: $bigTopMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-}
+    .usernameLanding {
+      margin-top: $topMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+      text-align: center;
+    }
 
-.passwordForm {
-  margin-top: $bigTopMargin;
-  margin-left: $leftMargin;
-  margin-right: $rightMargin;
-}
+    .emailLanding {
+      margin-top: $topMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+      text-align: center;
+    }
 
-.deleteButton {
-  margin-top: $bigTopMargin;
+
+    .content {
+      border: 2px solid black;
+      height: 666px;
+      width:1100px;
+      float:right;
+      display: inline-block;
+      margin-top: 0px;
+    }
+
+    .groupForm {
+      margin-top: $topMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+      margin-bottom: 20px;
+    }
+
+    .aboutMeInput {
+      width: 200px;
+    }
+
+    .aboutMeForm {
+      margin-top: $bigTopMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+    }
+
+    .passwordForm {
+      margin-top: $bigTopMargin;
+      margin-left: $leftMargin;
+      margin-right: $rightMargin;
+    }
+
+    .deleteButton {
+      margin-top: $bigTopMargin;
+    }
+  }
 }
