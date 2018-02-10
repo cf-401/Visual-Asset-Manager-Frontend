@@ -51,6 +51,7 @@ class FileDataContainer extends React.Component {
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
           fileDateUpdate={fileDateUpdate}
+          auth={this.props.auth}
         />
       </div>
     );
@@ -81,6 +82,7 @@ FileDataContainer.propTypes = {
   allFilters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   updateCurrentFilters: PropTypes.func.isRequired,
   labelInitialize: PropTypes.func.isRequired,
+  auth: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileDataContainer);
