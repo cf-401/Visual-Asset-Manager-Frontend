@@ -51,6 +51,7 @@ class FileDataContainer extends React.Component {
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
           fileDateUpdate={fileDateUpdate}
+          auth={this.props.auth}
         />
       </div>
     );

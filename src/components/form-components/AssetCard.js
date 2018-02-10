@@ -18,13 +18,24 @@ const labelCheck = (labels) => {
   return Object.keys(labels).map(label => (<Tag key={label}>{label}</Tag>));
 };
 
+function renderEdit(item, auth) {
+  console.log('auth', auth);
+  if (auth.user._id !== item.userId._id) {
+    return null;
+  }
+  return (
+    [<Icon type="edit" />]
+  );
+}
+
 const AssetCard = (props) => {
-  const { item } = props;
+  const { item, auth } = props;
+  console.log('item', item);
   return (
     <Card
       style={{ width: 300 }}
       cover={<img alt={item.name} src={item.path} />}
-      actions={[<Icon type="edit" />]}
+      actions={renderEdit(item, auth)}
       extra={labelCheck(item.labels)}
     >
       <Meta

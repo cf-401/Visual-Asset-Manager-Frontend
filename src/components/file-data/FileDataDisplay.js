@@ -37,7 +37,7 @@ class FileDataDisplay extends React.Component {
               />
               <h4>{item.name}
               </h4>
-              <AssetCard item={item} submitHandler={fileDateUpdate} type="updater" />
+              <AssetCard item={item} submitHandler={fileDateUpdate} type="updater" auth={this.props.auth} />
             </li>))}
       </ul>
     );
