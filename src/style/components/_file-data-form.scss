@@ -1,0 +1,30 @@
+.visual-form {
+  position: relative;
+  .ant-input {
+    margin: 5px;
+  }
+  .ant-btn-primary {
+    margin: 5px;
+    float: right;
+  }
+  figure{
+    max-width: 200px;
+  }
+  input[name="user_name"] {
+    top: -10px;
+  }
+  input[name="filename"] {
+    top: 50%;
+  }
+  input:read-only{
+    border: none;
+    width: 50%;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    &:focus{
+      border:none;
+      box-shadow: none;
+    }
+  }
+}

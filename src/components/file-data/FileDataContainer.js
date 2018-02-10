@@ -15,7 +15,7 @@ class FileDataContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: this.props.auth,
+      user: false,
     };
   }
   componentWillMount() {
@@ -25,9 +25,16 @@ class FileDataContainer extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const { fileDataInitialize } = this.props;
-    if (this.state.auth && this.state.auth.init && newProps.auth.user) {
+    const { user } = this.state;
+    const { auth } = newProps;
+    if (!user && auth.user) {
+      // first login
       fileDataInitialize();
-      this.setState({ auth: newProps.auth.user });
+      this.setState({ user: auth.user });
+    }
+    if (user && auth.init) {
+      // log out
+      this.setState({ user: false });
     }
   }
 
