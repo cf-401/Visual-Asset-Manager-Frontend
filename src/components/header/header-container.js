@@ -46,7 +46,10 @@ class Header extends React.Component {
   }
 
   logOut() {
-    cookie.remove('auth');
+    cookie.remove({
+      url: 'http://www.vam.fun/',
+      name: 'auth',
+    });
     this.props.handleLogout();
   }
 
