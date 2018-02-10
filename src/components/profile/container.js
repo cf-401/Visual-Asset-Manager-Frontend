@@ -1,10 +1,11 @@
-import './profile.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import UserUpdate from './userUpdate';
-import FileData from '../file-data/FileDataContainer';
+
+import FileList from './fileList';
 
 import * as actions from '../../state/auth/actions';
+import * as fileActions from '../../state/file-data/actions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -19,6 +20,11 @@ class Profile extends React.Component {
 
   componentWillMount() {
     this.props.userLogin();
+    this.props.fileDataInitialize();
+  }
+
+  onComplete(newState) {
+    this.props.userUpdate(newState);
   }
 
   editToggle(event) {
@@ -26,28 +32,27 @@ class Profile extends React.Component {
     this.setState({ isEditing: !this.state.isEditing });
   }
 
-  onComplete(newState) {
-    this.props.userUpdate(newState);
-  }
-
   render() {
     const { auth } = this.props;
     if (!auth.user) {
       return null;
     }
-    console.log(this.props.auth.user.group);
     return (
-          <div className="landingUserPage">
-          <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
-          <div className="userInfo">
-        <React.Fragment>
-          <UserUpdate
-            onComplete={this.onComplete}
-            editToggle={this.editToggle}
-            delete={this.props.userDelete}
-            auth={this.props.auth}
+      <div className="landingUserPage">
+        <h2 className="welcomeHeader"> Welcome {this.props.auth.user.username} </h2>
+        <div className="userInfo">
+          <React.Fragment>
+            <UserUpdate
+              onComplete={this.onComplete}
+              editToggle={this.editToggle}
+              delete={this.props.userDelete}
+              user={this.props.auth.user}
+            />
+          </React.Fragment>
+          <FileList
+            fileData={this.props.fileData}
+            user={this.props.auth.user}
           />
-        </React.Fragment>
         </div>
       </div>
     );
@@ -56,12 +61,14 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  fileData: state.fileData,
 });
 
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = dispatch => ({
   userUpdate: user => dispatch(actions.userUpdate(user)),
   userDelete: user => dispatch(actions.userDelete(user)),
   userLogin: user => dispatch(actions.authLogin(user)),
+  fileDataInitialize: () => dispatch(fileActions.init()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

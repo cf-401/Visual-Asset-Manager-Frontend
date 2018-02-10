@@ -10,7 +10,7 @@ describe('labels reducer', () => {
   };
   describe('initalize labels', () => {
     test('reads all the possible labels into the application states', () => {
-      const newState = reducer(initalState, { type: 'INIT', payload: database });
+      const newState = reducer(initalState, { type: 'INIT_LABELS', payload: database });
       expect(newState).toEqual({
         allLabels: ['label1', 'label2', 'label3', 'label4'],
         currentLabels: [],
@@ -31,7 +31,7 @@ describe('labels reducer', () => {
   describe('update selections', () => {
     test('sets current selections to a new array', () => {
       const updatedSlection = ['label1', 'label4', 'another label'];
-      const newState = reducer(initalState, { type: 'INIT', payload: database });
+      const newState = reducer(initalState, { type: 'INIT_LABELS', payload: database });
       const updatedState = reducer(newState, { type: 'UPDATE', payload: updatedSlection });
 
       expect(newState).toEqual({
@@ -47,7 +47,7 @@ describe('labels reducer', () => {
 
   describe('removes a label from both the current selections and from the all selections ', () => {
     test('it takes and id and removes the item', () => {
-      const newState = reducer(initalState, { type: 'INIT', payload: database });
+      const newState = reducer(initalState, { type: 'INIT_LABELS', payload: database });
       const removedState = reducer(newState, { type: 'DELETE', payload: 'label1' });
 
       expect(newState).toEqual({

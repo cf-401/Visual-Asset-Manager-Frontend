@@ -5,15 +5,6 @@ import cookie from 'react-cookies';
 
 const bearerToken = () => cookie.load('auth');
 
-export const authLogout = () => ({
-  type: 'DELETE_AUTH_TOKEN',
-});
-
-const deleteAction = auth => ({
-  type: 'DELETE',
-  payload: auth,
-});
-
 const setUser = auth => ({
   type: 'SET_AUTH_USER',
   payload: auth,
@@ -21,6 +12,15 @@ const setUser = auth => ({
 
 const updateAction = auth => ({
   type: 'UPDATE',
+  payload: auth,
+});
+
+export const authLogout = () => ({
+  type: 'DELETE_AUTH_TOKEN',
+});
+
+const deleteAction = auth => ({
+  type: 'DELETE',
   payload: auth,
 });
 

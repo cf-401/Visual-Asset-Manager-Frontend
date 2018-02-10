@@ -1,30 +1,38 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tag, Input, Tooltip, Icon } from 'antd';
+import { Tag, Input, Tooltip, Icon, AutoComplete } from 'antd';
+import { includes } from 'lodash';
+
 
 /* eslint-disable */
+require('style-loader!css-loader!antd/es/style/index.css');
 require('style-loader!css-loader!antd/es/tag/style/index.css');
 require('style-loader!css-loader!antd/es/input/style/index.css');
 require('style-loader!css-loader!antd/es/auto-complete/style/index.css');
+require('style-loader!css-loader!antd/es/dropdown/style/index.css');
+require('style-loader!css-loader!antd/es/select/style/index.css');
 /* eslint-enable */
+
 
 class EditableTagGroup extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      tags: ['Unremovable', 'Tag 2', 'Tag 3'],
+      tags: [],
       inputVisible: false,
       inputValue: '',
     };
 
     this.handleClose = this.handleClose.bind(this);
     this.showInput = this.showInput.bind(this);
+    this.handleInputSelect = this.handleInputSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.saveInputRef = this.saveInputRef.bind(this);
     this.handleInputConfirm = this.handleInputConfirm.bind(this);
   }
-
 
   handleClose(removedTag) {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
@@ -38,13 +46,33 @@ class EditableTagGroup extends React.Component {
     );
   }
 
-  handleInputChange(e) {
-    this.setState({ inputValue: e.target.value });
+  handleInputSelect(value) {
+    const { allLabels } = this.props;
+    if (includes(allLabels, value)) {
+      this.setState({ inputValue: value, newLabel: '' }, () => {
+        this.handleInputConfirm();
+      });
+    }
+  }
+
+  handleInputChange(value) {
+    const { allLabels } = this.props;
+    if (includes(allLabels.map(label => label.name), value)) {
+      return this.setState({ inputValue: value, newLabel: '' }, () => {
+        this.handleInputConfirm();
+      });
+    }
+    return this.setState({ newLabel: value });
   }
 
   handleInputConfirm() {
     let { tags } = this.state;
-    const { inputValue } = this.state;
+    const { inputValue, newLabel } = this.state;
+    const {
+      makeNewLabel,
+      handleLablesChange,
+    } = this.props;
+
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
@@ -52,7 +80,15 @@ class EditableTagGroup extends React.Component {
       tags,
       inputVisible: false,
       inputValue: '',
-    }, () => this.props.handleLablesChange(tags));
+    }, () => handleLablesChange(tags));
+
+    if (newLabel) {
+      tags = [...tags, newLabel];
+      this.setState({ tags, newLabel: '' }, () => {
+        handleLablesChange(tags);
+        makeNewLabel({ name: newLabel });
+      });
+    }
   }
 
   saveInputRef(input) {
@@ -60,36 +96,52 @@ class EditableTagGroup extends React.Component {
   }
 
   render() {
-    const { tags, inputVisible, inputValue } = this.state;
+    const {
+      tags, inputVisible, inputValue,
+    } = this.state;
+    const { allLabels } = this.props;
+    const InputElement = (<Input
+      ref={this.saveInputRef}
+      type="text"
+      size="medium"
+      style={{ width: 100 }}
+      value={inputValue}
+      onChange={this.handleInputChange}
+      onBlur={this.handleInputConfirm}
+      onPressEnter={this.handleInputConfirm}
+    />);
     return (
       <div>
-        {tags.map((tag, index) => {
+        <h4>Add labels for image filtering</h4>
+        {tags.map((tag) => {
           const isLongTag = tag.length > 20;
           const tagElem = (
-            <Tag key={tag} closable={index !== 0} afterClose={() => this.handleClose(tag)}>
+            /* eslint-disable-next-line no-underscore-dangle */
+            <Tag key={tag._id} closable afterClose={() => this.handleClose(tag)}>
               {isLongTag ? `${tag.slice(0, 20)}...` : tag}
             </Tag>
           );
           return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem;
         })}
         {inputVisible && (
-          <Input
-            ref={this.saveInputRef}
-            type="text"
-            size="small"
-            style={{ width: 78 }}
-            value={inputValue}
+          <AutoComplete
+            style={{ width: 100 }}
+            dataSource={allLabels.map(label => label.name)}
+            onSelect={this.handleInputSelect}
             onChange={this.handleInputChange}
-            onBlur={this.handleInputConfirm}
-            onPressEnter={this.handleInputConfirm}
-          />
+            placeholder="Add a tag"
+            filterOption={(input, option) =>
+              option.props.children.toUpperCase().indexOf(input.toUpperCase()) !== -1}
+          >
+            {InputElement}
+          </AutoComplete>
         )}
         {!inputVisible && (
           <Tag
             onClick={this.showInput}
             style={{ background: '#fff', borderStyle: 'dashed' }}
           >
-            <Icon type="plus" /> New Tag
+            <Icon type="plus" /> New Label
           </Tag>
         )}
       </div>
@@ -99,6 +151,9 @@ class EditableTagGroup extends React.Component {
 
 EditableTagGroup.propTypes = {
   handleLablesChange: PropTypes.func.isRequired,
+  allLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  makeNewLabel: PropTypes.func.isRequired,
 };
+
 
 export default EditableTagGroup;

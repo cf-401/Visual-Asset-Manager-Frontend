@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Form, Icon, Input, Button } from 'antd';
 
+const FormItem = Form.Item;
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
@@ -19,8 +21,12 @@ class LogIn extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    const { formType, create, login } = this.props;
+    const {
+      toggleModal,
+      formType,
+      create,
+      login,
+    } = this.props;
     const formSubmitMapping = {
       signup: create,
       signin: login,
@@ -29,40 +35,72 @@ class LogIn extends React.Component {
     if (!this.state.username) {
       return this.setState(
         { username: this.state.email.split('@')[0] },
-        () => formSubmitMapping[formType](this.state),
+        () => {
+          toggleModal();
+          return formSubmitMapping[formType](this.state);
+        },
       );
     }
+    toggleModal();
     return formSubmitMapping[formType](this.state);
   }
 
   renderSignInForm() {
+    const { getFieldDecorator } = this.props.form;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="email">Email:
-          <input type="text" id="email" onChange={this.handleChange} required />
-        </label>
-        <label htmlFor="password">Password:
-          <input type="password" id="password" onChange={this.handleChange} required />
-        </label>
-        <input type="submit" value="Log In" />
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <FormItem>
+          {getFieldDecorator('email', {
+           rules: [{ required: true, message: 'Please input your username!' }],
+         })(<Input
+           onChange={this.handleChange}
+           prefix={<Icon type="email" style={{ color: 'rgba(0,0,0,.25)' }} />}
+           placeholder="Email"
+         />)}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          })(<Input
+            id="password"
+            onChange={this.handleChange}
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="password"
+            p
+            placeholder="Password"
+          />)}
+        </FormItem>
+        <Button type="primary" htmlType="submit">Log in</Button >
+      </Form>
     );
   }
 
   renderSignUpForm() {
+    const { getFieldDecorator } = this.props.form;
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="email">Email:
-          <input type="text" id="email" onChange={this.handleChange} required />
-        </label>
-        <label htmlFor="password">Password:
-          <input type="password" id="password" onChange={this.handleChange} required />
-        </label>
-        <label htmlFor="username">Display Name (optional):
-          <input type="text" id="username" onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Sign Up" />
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <FormItem>
+          {getFieldDecorator('email', {
+         rules: [{ required: true, message: 'Please input your username' }],
+       })(<Input
+         onChange={this.handleChange}
+         prefix={<Icon type="email" style={{ color: 'rgba(0,0,0,.25)' }} />}
+         placeholder="Email"
+       />)}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          })(<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('userName', {
+            rules: [{ required: true, message: 'Please input your username!' }],
+          })(<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />)}
+        </FormItem>
+        <Button type="primary" htmlType="submit">Sign up</Button >
+      </Form>
     );
   }
 
@@ -83,6 +121,7 @@ LogIn.propTypes = {
   create: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   formType: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
-export default LogIn;
+export default Form.create()(LogIn);
