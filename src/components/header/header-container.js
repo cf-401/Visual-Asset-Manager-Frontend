@@ -18,7 +18,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      showModal: true,
     };
     this.renderUserName = this.renderUserName.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -27,6 +27,12 @@ class Header extends React.Component {
 
   componentWillMount() {
     this.props.initalLogin();
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.auth.user) {
+      this.setState({ showModal: false });
+    }
   }
 
   toggleModal() {
