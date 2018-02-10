@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { FormCreateOption } from 'antd/lib/form/Form';
+import { Form, Icon, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
-console.log(Form.Item);
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
@@ -121,6 +119,7 @@ class LogIn extends React.Component {
 
 LogIn.propTypes = {
   create: PropTypes.func.isRequired,
+  form: PropTypes.shape({}).isRequired,
   login: PropTypes.func.isRequired,
   formType: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,

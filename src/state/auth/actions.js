@@ -24,6 +24,21 @@ const deleteAction = auth => ({
   payload: auth,
 });
 
+export const checkLogin = () => (dispatch) => {
+  const cookieToken = cookie.load('auth');
+  if (!cookieToken) {
+    return;
+  }
+  const authenticateUsingToken = token => superagent.get(`${__AUTH_URL__}/validate`)
+    .set('Authorization', `Bearer ${token}`);
+  return authenticateUsingToken(cookieToken)
+    .then((res) => {
+      dispatch(setUser(res.body));
+      return res;
+    })
+    .catch(e => console.error('Authenticaton Error:', e.message));
+};
+
 export const authLogin = (user = {}) => (dispatch) => {
   const cookieToken = cookie.load('auth');
   const authenticateUsingToken = token => superagent.get(`${__AUTH_URL__}/validate`)
@@ -73,7 +88,6 @@ export const userDelete = payload => (dispatch) => {
   superagent.delete(URL)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .then(() => {
-      console.log('!!!!', payload);
       dispatch(deleteAction(payload));
     })
     .catch(console.error);

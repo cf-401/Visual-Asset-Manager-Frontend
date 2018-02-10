@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Input } from 'antd';
-
+import { Form, Button, Input, Upload, Icon } from 'antd';
+import { noop } from 'lodash';
 import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
+import Modal from '../form-components/Modal';
+
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/style/index.css');
 /* eslint-enable */
@@ -16,11 +18,6 @@ const FileDataDefault = {
   path: '',
   description: '',
   preview: '',
-};
-
-const buttonMap = {
-  creator: 'Save',
-  updater: 'Update',
 };
 
 class FileDataForm extends React.Component {
@@ -36,16 +33,16 @@ class FileDataForm extends React.Component {
     this.renderPreview = this.renderPreview.bind(this);
     this.renderName = this.renderName.bind(this);
     this.handleLablesChange = this.handleLablesChange.bind(this);
+    this.renderRestofForm = this.renderRestofForm.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit(data) {
     const { submitHandler, type } = this.props;
-    e.preventDefault();
-    submitHandler(Object.assign({}, this.state));
+    submitHandler(data);
     if (type === 'creator') {
       this.setState({ ...FileDataDefault });
     } else {
@@ -53,13 +50,13 @@ class FileDataForm extends React.Component {
     }
   }
 
-  handleImage(e) {
-    const { files } = e.target;
-    const visualAsset = files[0];
+  handleImage(file) {
+    const visualAsset = file;
     this.setState({ visualAsset, filename: visualAsset.name });
-    photoToDataUrl(visualAsset)
+    return photoToDataUrl(visualAsset)
       .then((preview) => {
         this.setState({ preview });
+        return false;
       })
       .catch(console.error);
   }
@@ -86,73 +83,87 @@ class FileDataForm extends React.Component {
       </figure>) : null;
   }
 
-  renderName() {
-    const { type, user } = this.props;
-
-    if (type === 'creator') {
-      return (
-        <input
-          name="user_name"
-          type="text"
-          readOnly
-          value={user.username}
-        />
-      );
+  renderRestofForm() {
+    const {
+      allLabels,
+      makeNewLabel,
+      type,
+    } = this.props;
+    let button = null;
+    if (type !== 'creator') {
+      button = <Button type="primary" htmlType="submit">Update</Button>;
     }
-    if (this.state.userId) {
+    if (this.state.preview) {
       return (
-        <input
-          name="user_name"
-          type="text"
-          readOnly
-          value={this.state.userId.username}
-        />
+        <React.Fragment>
+          <Input
+            name="filename"
+            type="text"
+            value={this.state.filename}
+            placeholder="File name"
+            onChange={this.handleChange}
+            readOnly
+          />
+          <Input
+            name="description"
+            type="text"
+            value={this.state.description}
+            placeholder="Enter a description"
+            onChange={this.handleChange}
+            required
+          />
+          <EditableTagGroup
+            makeNewLabel={makeNewLabel}
+            handleLablesChange={this.handleLablesChange}
+            allLabels={allLabels}
+          />
+          {button}
+        </React.Fragment>
       );
     }
     return null;
   }
 
-  render() {
-    const {
-      type,
-      allLabels,
-      makeNewLabel,
-    } = this.props;
+  renderName() {
+    const { type, user } = this.props;
+    let name = '';
+    if (type === 'creator') {
+      name = user.username;
+    } else if (this.state.userId) {
+      name = this.state.userId.username;
+    }
     return (
-      <form onSubmit={this.handleSubmit} className="visual-form">
-        {this.renderName()}
-        <input
-          name="filename"
-          type="text"
-          value={this.state.filename}
-          placeholder="File name"
-          onChange={this.handleChange}
-        />
-        <input
-          name="description"
-          type="text"
-          value={this.state.description}
-          placeholder="Enter a description"
-          onChange={this.handleChange}
-          required
-        />
-        <EditableTagGroup
-          makeNewLabel={makeNewLabel}
-          handleLablesChange={this.handleLablesChange}
-          allLabels={allLabels}
-        />
-        <label htmlFor="path">
+      <Input
+        name="user_name"
+        type="text"
+        readOnly
+        value={name}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <Modal currentState={this.state} submitHandler={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} className="visual-form">
+          {this.renderName()}
           {this.renderImage()}
           {this.renderPreview()}
-          <Input
+          <Upload
+            beforeUpload={this.handleImage}
             name="path"
             type="file"
-            onChange={this.handleImage}
-          />
-        </label>
+            customRequest={noop}
+            showUploadList={false}
+          >
+            <Button>
+              <Icon type="upload" /> Click to Upload
+            </Button>
+          </Upload>
+          {this.renderRestofForm()}
+        </Form>
+      </Modal>
 
-        <Button type="primary" htmlType="submit">{buttonMap[type]}</Button>
-      </form>
     );
   }
 }

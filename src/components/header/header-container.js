@@ -61,7 +61,7 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <p><Logo width="50" height="50" /></p>
+        <div><Logo width="50" height="50" /></div>
         <ul className="navList">
           {renderIf(
           !this.props.auth.user,

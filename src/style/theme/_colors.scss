@@ -1,1 +1,8 @@
 $background-gray: #d4e0e5;
+$darker-gray: #8aaaaa;
+$brand-primary: #41c7df;
+
+.ant-btn-primary{
+  background-color:$brand-primary!important;
+  border-color: $brand-primary!important;
+}

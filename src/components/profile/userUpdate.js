@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'antd';
 
 class UserUpdate extends React.Component {
   constructor(props) {
@@ -58,7 +59,6 @@ class UserUpdate extends React.Component {
               onChange={this.onChangeOfUsername}
             />
           </div>
-          <br />
           <div className="passwordForm">
             <label id="password">
             change your password
@@ -70,7 +70,6 @@ class UserUpdate extends React.Component {
               onChange={this.onChangeOfPassword}
             />
           </div>
-          <br />
           <div className="emailForm">
             <label id="email">
           change your email
@@ -81,7 +80,6 @@ class UserUpdate extends React.Component {
               onChange={this.onChangeOfEmail}
             />
           </div>
-          <br />
           <div className="groupForm">
             <label id="group">
             change your group
@@ -104,16 +102,14 @@ class UserUpdate extends React.Component {
               onChange={this.onChangeOfAboutMe}
             />
           </div>
-          <br />
-          <button type="submit"> submit </button>
-          <br />
-          <button
+          <Button type="primary" htmlType="submit"> submit </Button>
+          <Button
             className="deleteButton"
-            type="submit"
+            htmlType="submit"
             onClick={() => this.props.delete()}
           >
           delete account
-          </button>
+          </Button>
         </form>
       </React.Fragment>
     );
@@ -122,6 +118,8 @@ class UserUpdate extends React.Component {
 
 UserUpdate.propTypes = {
   user: PropTypes.shape({}).isRequired,
+  onComplete: PropTypes.func.isRequired,
+  delete: PropTypes.func.isRequired,
 };
 
 export default UserUpdate;

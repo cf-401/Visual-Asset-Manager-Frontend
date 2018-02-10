@@ -1,5 +1,5 @@
 import React from 'react';
-import AssetCard from '../form-components/AssetCard';
+import FileDataDisplay from '../file-data/FileDataDisplay';
 
 class FileList extends React.Component {
   constructor(props) {
@@ -8,7 +8,8 @@ class FileList extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    const filteredFiles = props.fileData.filter((file) => {
+    const { fileData } = props;
+    const filteredFiles = fileData.filter((file) => {
       if (!file.userId) {
         return false;
       }
@@ -18,16 +19,12 @@ class FileList extends React.Component {
   }
 
   render() {
+    if (!this.state.filteredFiles) {
+      return null;
+    }
     return (
-      <div>
-        <ul>
-          {
-            this.state.filteredFiles && this.state.filteredFiles.map(file => (
-              <AssetCard item={file} type="updater" />
-
-            ))
-          }
-        </ul>
+      <div className="file-data-container">
+        <FileDataDisplay toDisplay={this.state.filteredFiles} isUser />
       </div>
     );
   }

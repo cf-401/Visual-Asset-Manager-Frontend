@@ -4,18 +4,15 @@ import { connect } from 'react-redux';
 
 import fileDataState from '../../state/file-data';
 import selections from '../../state/selections';
-import authState from '../../state/auth';
 
 import FilterSelector from '../filtering/FilterSelector';
-import AuthCheck from '../log-in/AuthCheck';
-import FileDataForm from './FileDataForm';
 import FileDataDisplay from './FileDataDisplay';
 
 class FileDataContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: this.props.auth,
+      user: false,
     };
   }
   componentWillMount() {
@@ -25,40 +22,36 @@ class FileDataContainer extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const { fileDataInitialize } = this.props;
-    if (this.state.auth && this.state.auth.init && newProps.auth.user) {
+    const { user } = this.state;
+    const { auth } = newProps;
+    if (!user && auth.user) {
+      // first login
       fileDataInitialize();
-      this.setState({ auth: newProps.auth.user });
+      this.setState({ user: auth.user });
+    }
+    if (user && auth.init) {
+      // log out
+      this.setState({ user: false });
     }
   }
 
   render() {
     const {
-      auth,
       fileDataArray,
       fileDataDelete,
       fileDateUpdate,
-      fileDataCreate,
-      makeNewLabel,
       updateCurrentFilters,
       allFilters,
     } = this.props;
 
     return (
       <div>
-        <AuthCheck>
-          <FileDataForm
-            submitHandler={fileDataCreate}
-            type="creator"
-            user={auth.user}
-            allLabels={allFilters}
-            makeNewLabel={makeNewLabel}
-          />
-        </AuthCheck>
         <FilterSelector updateCurrentFilters={updateCurrentFilters} allFilters={allFilters} />
         <FileDataDisplay
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
           fileDateUpdate={fileDateUpdate}
+          auth={this.props.auth}
         />
       </div>
     );
@@ -84,18 +77,12 @@ const mapDispatchToProps = dispatch => ({
 FileDataContainer.propTypes = {
   fileDataInitialize: PropTypes.func.isRequired,
   fileDataArray: PropTypes.arrayOf(PropTypes.shape(fileDataState.type)).isRequired,
-  fileDataCreate: PropTypes.func.isRequired,
   fileDataDelete: PropTypes.func.isRequired,
   fileDateUpdate: PropTypes.func.isRequired,
-  makeNewLabel: PropTypes.func.isRequired,
   allFilters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  auth: PropTypes.shape(authState.type),
   updateCurrentFilters: PropTypes.func.isRequired,
   labelInitialize: PropTypes.func.isRequired,
-};
-
-FileDataContainer.defaultProps = {
-  auth: null,
+  auth: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FileDataContainer);
