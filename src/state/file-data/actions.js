@@ -24,7 +24,9 @@ export const create = payload => (dispatch) => {
   superagent.post(API)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .send(payload)
-    .then(res => dispatch(actions.create(res.body)))
+    .then((res) => {
+      dispatch(actions.create(res.body));
+    })
     .catch(console.error);
 };
 
@@ -74,7 +76,6 @@ export const updateImage = data => (dispatch) => {
 
 export const uploadImage = data => (dispatch) => {
   const token = cookies.load('auth');
-
   const URL = `${__API_URL__}/upload`;
   superagent.post(URL)
     .set('Authorization', `Bearer ${token}`)

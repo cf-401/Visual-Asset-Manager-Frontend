@@ -88,7 +88,6 @@ export const userDelete = payload => (dispatch) => {
   superagent.delete(URL)
     .set('Authorization', `Bearer ${bearerToken()}`)
     .then(() => {
-      console.log('!!!!', payload);
       dispatch(deleteAction(payload));
     })
     .catch(console.error);
