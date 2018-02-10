@@ -20,9 +20,10 @@ class ModalImageUploader extends React.Component {
   }
 
   handleOk(e) {
+    console.log('curent state', this.props.currentState);
     this.setState({
       visible: false,
-    }, this.props.submitHandler);
+    }, this.props.submitHandler(this.props.currentState));
   }
 
   handleCancel(e) {
@@ -40,8 +41,8 @@ class ModalImageUploader extends React.Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          okText="Done"
-          destroyOnClose="true"
+          okText="Save"
+          destroyOnClose
         >
           {children}
         </Modal>

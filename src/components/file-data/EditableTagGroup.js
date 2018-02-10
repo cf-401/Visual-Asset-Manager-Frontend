@@ -103,7 +103,7 @@ class EditableTagGroup extends React.Component {
     const InputElement = (<Input
       ref={this.saveInputRef}
       type="text"
-      size="small"
+      size="medium"
       style={{ width: 100 }}
       value={inputValue}
       onChange={this.handleInputChange}
@@ -112,11 +112,12 @@ class EditableTagGroup extends React.Component {
     />);
     return (
       <div>
+        <h4>Add labels for image filtering</h4>
         {tags.map((tag) => {
           const isLongTag = tag.length > 20;
           const tagElem = (
             /* eslint-disable-next-line no-underscore-dangle */
-            <Tag key={tag._id} closable="true" afterClose={() => this.handleClose(tag)}>
+            <Tag key={tag._id} closable afterClose={() => this.handleClose(tag)}>
               {isLongTag ? `${tag.slice(0, 20)}...` : tag}
             </Tag>
           );

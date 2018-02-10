@@ -6,6 +6,8 @@ import { FileDataType } from '../../state/file-data/type';
 import { User } from '../../state/auth/type';
 import { photoToDataUrl } from '../../util/fileData';
 import EditableTagGroup from './EditableTagGroup';
+import Modal from '../form-components/Modal';
+
 /* eslint-disable */
 require('style-loader!css-loader!antd/es/style/index.css');
 /* eslint-enable */
@@ -43,10 +45,9 @@ class FileDataForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit(data) {
     const { submitHandler, type } = this.props;
-    e.preventDefault();
-    submitHandler(Object.assign({}, this.state));
+    submitHandler(data);
     if (type === 'creator') {
       this.setState({ ...FileDataDefault });
     } else {
@@ -59,6 +60,7 @@ class FileDataForm extends React.Component {
     this.setState({ visualAsset, filename: visualAsset.name });
     return photoToDataUrl(visualAsset)
       .then((preview) => {
+        file.status = 'done';
         this.setState({ preview });
         return false;
       })
@@ -93,15 +95,20 @@ class FileDataForm extends React.Component {
       makeNewLabel,
       type,
     } = this.props;
+    let button = null;
+    if (type !== 'creator') {
+      button = <Button type="primary" htmlType="submit">Update</Button>;
+    }
     if (this.state.preview) {
       return (
-        <div>
+        <React.Fragment>
           <Input
             name="filename"
             type="text"
             value={this.state.filename}
             placeholder="File name"
             onChange={this.handleChange}
+            readOnly
           />
           <Input
             name="description"
@@ -116,8 +123,8 @@ class FileDataForm extends React.Component {
             handleLablesChange={this.handleLablesChange}
             allLabels={allLabels}
           />
-          <Button type="primary" htmlType="submit">{buttonMap[type]}</Button>
-        </div>
+          {button}
+        </React.Fragment>
       );
     }
     return null;
@@ -143,22 +150,26 @@ class FileDataForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit} className="visual-form">
-        {this.renderName()}
-        {this.renderImage()}
-        {this.renderPreview()}
-        <Upload
-          beforeUpload={this.handleImage}
-          name="path"
-          type="file"
-          customRequest={noop}
-        >
-          <Button>
-            <Icon type="upload" /> Click to Upload
-          </Button>
-        </Upload>
-        {this.renderRestofForm()}
-      </Form>
+      <Modal currentState={this.state} submitHandler={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} className="visual-form">
+          {this.renderName()}
+          {this.renderImage()}
+          {this.renderPreview()}
+          <Upload
+            beforeUpload={this.handleImage}
+            name="path"
+            type="file"
+            customRequest={noop}
+            showUploadList={false}
+          >
+            <Button>
+              <Icon type="upload" /> Click to Upload
+            </Button>
+          </Upload>
+          {this.renderRestofForm()}
+        </Form>
+      </Modal>
+
     );
   }
 }
