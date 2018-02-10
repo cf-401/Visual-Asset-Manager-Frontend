@@ -55,7 +55,13 @@ class FileDataDisplay extends React.Component {
   }
 
   render() {
-    const { toDisplay, fileDateUpdate, auth } = this.props;
+    const {
+      toDisplay,
+      fileDateUpdate,
+      auth,
+      allFilters,
+      makeNewLabel,
+    } = this.props;
     return (
       <ul className="file-data-container">
         {toDisplay.map(item =>
@@ -69,6 +75,8 @@ class FileDataDisplay extends React.Component {
                 submitHandler={fileDateUpdate}
                 type="updater"
                 isOwnerOfAsset={this.isOwnerOfAsset(item, auth)}
+                allFilters={allFilters}
+                makeNewLabel={makeNewLabel}
               />
             </li>
           ))}

@@ -42,6 +42,7 @@ class FileDataContainer extends React.Component {
       fileDateUpdate,
       updateCurrentFilters,
       allFilters,
+      makeNewLabel,
     } = this.props;
 
     return (
@@ -51,7 +52,9 @@ class FileDataContainer extends React.Component {
           toDisplay={fileDataArray}
           fileDataDelete={fileDataDelete}
           fileDateUpdate={fileDateUpdate}
+          allFilters={allFilters}
           auth={this.props.auth}
+          makeNewLabel={makeNewLabel}
         />
       </div>
     );

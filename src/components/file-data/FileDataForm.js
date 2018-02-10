@@ -24,8 +24,8 @@ class FileDataForm extends React.Component {
   constructor(props) {
     super(props);
     const { fileData } = this.props;
+    const { visible } = this.props;
 
-    this.state = fileData;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImage = this.handleImage.bind(this);
@@ -34,48 +34,62 @@ class FileDataForm extends React.Component {
     this.renderName = this.renderName.bind(this);
     this.handleLablesChange = this.handleLablesChange.bind(this);
     this.renderRestofForm = this.renderRestofForm.bind(this);
+    this.state = {
+      visible,
+      fileData,
+    };
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    const { fileData } = this.state;
+    this.setState({ fileData: { ...fileData, [e.target.name]: e.target.value } });
   }
 
   handleSubmit(data) {
     const { submitHandler, type } = this.props;
     submitHandler(data);
     if (type === 'creator') {
-      this.setState({ ...FileDataDefault });
+      this.setState({ fileData: FileDataDefault });
     } else {
-      this.setState({ preview: '' });
+      const { fileData } = this.state;
+      this.setState({ fileData: { ...fileData, preview: '' }, visible: false });
     }
   }
 
   handleImage(file) {
     const visualAsset = file;
-    this.setState({ visualAsset, filename: visualAsset.name });
+    const { fileData } = this.state;
+    this.setState({ fileData: { ...fileData, visualAsset, filename: visualAsset.name } });
     return photoToDataUrl(visualAsset)
       .then((preview) => {
-        this.setState({ preview });
+        const newFileData = this.state.fileData;
+        this.setState({
+          fileData: {
+            ...newFileData, preview,
+          },
+        });
         return false;
       })
       .catch(console.error);
   }
 
   handleLablesChange(value) {
+    const { fileData } = this.state;
+
     const labels = value.reduce((acc, cur) => {
       acc[cur] = true;
       return acc;
     }, {});
-    this.setState({ labels }, () => console.log(this.state));
+    this.setState({ fileData: { ...fileData, labels } });
   }
 
   renderImage() {
-    const { name, path } = this.state;
+    const { name, path } = this.state.fileData;
     return path ? (<img src={path} alt={name} />) : null;
   }
 
   renderPreview() {
-    const { preview } = this.state;
+    const { preview } = this.state.fileData;
     return preview ? (
       <figure>
         <img src={preview} alt="preview of upload" />
@@ -89,17 +103,16 @@ class FileDataForm extends React.Component {
       makeNewLabel,
       type,
     } = this.props;
-    let button = null;
-    if (type !== 'creator') {
-      button = <Button type="primary" htmlType="submit">Update</Button>;
-    }
-    if (this.state.preview) {
+    const { fileData } = this.state;
+    const button = null;
+
+    if (fileData.preview || type !== 'creator') {
       return (
         <React.Fragment>
           <Input
             name="filename"
             type="text"
-            value={this.state.filename}
+            value={fileData.filename}
             placeholder="File name"
             onChange={this.handleChange}
             readOnly
@@ -107,7 +120,7 @@ class FileDataForm extends React.Component {
           <Input
             name="description"
             type="text"
-            value={this.state.description}
+            value={fileData.description}
             placeholder="Enter a description"
             onChange={this.handleChange}
             required
@@ -126,11 +139,12 @@ class FileDataForm extends React.Component {
 
   renderName() {
     const { type, user } = this.props;
+    const { fileData } = this.state;
     let name = '';
     if (type === 'creator') {
       name = user.username;
-    } else if (this.state.userId) {
-      name = this.state.userId.username;
+    } else if (fileData.userId) {
+      name = fileData.userId.username;
     }
     return (
       <Input
@@ -143,8 +157,15 @@ class FileDataForm extends React.Component {
   }
 
   render() {
+    const { type } = this.props;
+    const { visible } = this.state;
     return (
-      <Modal currentState={this.state} submitHandler={this.handleSubmit}>
+      <Modal
+        fileData={this.state.fileData}
+        submitHandler={this.handleSubmit}
+        type={type}
+        visible={visible}
+      >
         <Form onSubmit={this.handleSubmit} className="visual-form">
           {this.renderName()}
           {this.renderImage()}
@@ -163,7 +184,6 @@ class FileDataForm extends React.Component {
           {this.renderRestofForm()}
         </Form>
       </Modal>
-
     );
   }
 }
@@ -176,6 +196,7 @@ FileDataForm.propTypes = {
   user: PropTypes.shape(User),
   allLabels: PropTypes.arrayOf(PropTypes.shape({})),
   makeNewLabel: PropTypes.func.isRequired,
+  visible: Boolean,
 };
 
 FileDataForm.defaultProps = {
@@ -183,6 +204,7 @@ FileDataForm.defaultProps = {
   type: 'creator',
   user: {},
   allLabels: [],
+  visible: false,
 };
 
 export default FileDataForm;

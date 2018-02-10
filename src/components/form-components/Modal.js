@@ -9,8 +9,16 @@ class ModalImageUploader extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.handleOk = this.handleOk.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.renderButton = this.renderButton.bind(this);
+    const { visible } = this.props;
+    this.state = { visible };
+  }
 
-    this.state = { visible: false };
+  componentWillReceiveProps(newProps) {
+    const { visible } = newProps;
+    if (visible) {
+      this.setState({ visible });
+    }
   }
 
   showModal() {
@@ -19,11 +27,11 @@ class ModalImageUploader extends React.Component {
     });
   }
 
-  handleOk(e) {
-    console.log('curent state', this.props.currentState);
+  handleOk() {
+    const { fileData } = this.props;
     this.setState({
       visible: false,
-    }, this.props.submitHandler(this.props.currentState));
+    }, this.props.submitHandler(fileData));
   }
 
   handleCancel(e) {
@@ -31,11 +39,19 @@ class ModalImageUploader extends React.Component {
       visible: false,
     });
   }
+
+  renderButton() {
+    const { type } = this.props;
+    if (type === 'creator') {
+      return (<Button type="primary" onClick={this.showModal}>Upload Images</Button>);
+    }
+    return null;
+  }
   render() {
     const { children } = this.props;
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>Upload Images</Button>
+        {this.renderButton()}
         <Modal
           title="Image Uploader"
           visible={this.state.visible}
@@ -50,5 +66,12 @@ class ModalImageUploader extends React.Component {
     );
   }
 }
+
+ModalImageUploader.propTypes = {
+  visible: Boolean,
+};
+ModalImageUploader.defaultProps = {
+  visible: false,
+};
 
 export default ModalImageUploader;
