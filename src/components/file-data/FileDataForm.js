@@ -20,11 +20,6 @@ const FileDataDefault = {
   preview: '',
 };
 
-const buttonMap = {
-  creator: 'Save',
-  updater: 'Update',
-};
-
 class FileDataForm extends React.Component {
   constructor(props) {
     super(props);
@@ -60,7 +55,6 @@ class FileDataForm extends React.Component {
     this.setState({ visualAsset, filename: visualAsset.name });
     return photoToDataUrl(visualAsset)
       .then((preview) => {
-        file.status = 'done';
         this.setState({ preview });
         return false;
       })

@@ -119,6 +119,7 @@ class LogIn extends React.Component {
 
 LogIn.propTypes = {
   create: PropTypes.func.isRequired,
+  form: PropTypes.shape({}).isRequired,
   login: PropTypes.func.isRequired,
   formType: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,

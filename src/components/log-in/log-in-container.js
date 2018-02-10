@@ -82,7 +82,11 @@ class LogInContainer extends React.Component {
               toggleModal={this.props.toggleModal}
             />
             <span>Or </span>
-            <Button onClick={this.toggleFormType} name={this.state.notFormType}>{linkMap[this.state.notFormType]}</Button>
+            <Button
+              onClick={this.toggleFormType}
+              name={this.state.notFormType}
+            >{linkMap[this.state.notFormType]}
+            </Button>
             <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team,identity.avatar&client_id=21630512897.312261919794">
               <img
                 alt="Sign in with Slack"

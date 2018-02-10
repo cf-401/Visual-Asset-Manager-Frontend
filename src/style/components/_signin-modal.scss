@@ -19,11 +19,16 @@
   > .modal {
     background: #ffffff;
     box-sizing: border-box;
-    height: 200px;
     margin: auto;
     position: relative;
     top: 30%;
     width: 300px;
     z-index: 3;
+    padding: 20px;
+    border-radius: 3px;
+
+    button {
+      margin: 10px;
+    }
   }
 }
