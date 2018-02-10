@@ -3,15 +3,16 @@ h1 {
   text-align: center;
 }
 
-
 .header {
-  border: 2px black solid;
+  @include shadow-bottom-fuzzy;
   width: 100%;
-
 
 ul {
   display: flex;
   flex-direction: row;
+  &:hover{
+    color: $brand-primary;
+  }
 
   li{
     list-style: none;
@@ -25,19 +26,24 @@ ul {
       flex-direction: column;
       position: absolute;
       background: white;
-      // color: black;
       left: 2em;
       width: 100%;
-
+      @include box-raised;
+      background-color: $brand-primary;
+      color: white;
       li {
-         padding: .2em;
+         padding: .5em;
+         &:hover{
+           background-color: lighten($brand-primary, 10%);
+         }
+         a {
+           color: white;
+         }
       }
     }
   }
 
   li:hover {
-    // background: blue;
-    // color: white;
 
     ul {
       display: flex;
