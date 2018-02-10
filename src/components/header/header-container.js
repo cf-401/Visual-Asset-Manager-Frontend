@@ -13,6 +13,7 @@ import authState from '../../state/auth';
 import FileDataForm from '../file-data/FileDataForm';
 import SignInModal from '../signin-modal/signin-modal-container';
 import AuthCheck from '../log-in/AuthCheck';
+import Logo from '../header/logo';
 
 class Header extends React.Component {
   constructor(props) {
@@ -73,8 +74,8 @@ class Header extends React.Component {
       allFilters,
     } = this.props;
     return (
-      <div className="header">
-        <h1>VAM</h1>
+      <header>
+        <div><Logo width="50" height="50" /></div>
         <ul className="navList">
           {renderIf(
           !this.props.auth.user,
@@ -103,7 +104,7 @@ class Header extends React.Component {
           this.state.showModal,
           <SignInModal toggleModal={this.toggleModal} />,
         )}
-      </div>
+      </header>
     );
   }
 }
